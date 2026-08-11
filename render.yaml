@@ -1,0 +1,34 @@
+# Render deployment template (update placeholders before use)
+services:
+  - type: web
+    name: hms-backend
+    repo: <YOUR_GITHUB_ORG/REPO>
+    branch: main
+    env: node
+    buildCommand: "cd backend && npm install"
+    startCommand: "cd backend && npm start"
+    plan: free
+    envVars:
+      - key: MONGO_URI
+        value: <YOUR_MONGO_URI>
+        scope: private
+      - key: JWT_SECRET
+        value: <YOUR_JWT_SECRET>
+        scope: private
+
+  - type: static
+    name: hms-frontend
+    repo: <YOUR_GITHUB_ORG/REPO>
+    branch: main
+    buildCommand: "cd frontend && npm install && npm run build"
+    publishService: true
+    publish: frontend/dist
+    plan: free
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: https://your-backend.example.com/api
+        scope: public
+
+# Notes:
+# - Replace <YOUR_GITHUB_ORG/REPO> and secrets before running `render deploy` or using the Render dashboard.
+# - Render's YAML supports many more options; see https://render.com/docs for advanced config.
