@@ -120,7 +120,7 @@ export default function PublicLayout() {
           {/* Mobile Menu Toggle */}
           <Button
             variant="ghost"
-            className="lg:hidden h-10 w-10 p-0 z-50 rounded-full bg-[var(--color-background-secondary)] text-[var(--color-foreground)]"
+            className="lg:hidden h-10 w-10 p-0 z-[100000] rounded-full bg-[var(--color-background-secondary)] text-[var(--color-foreground)]"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -136,7 +136,7 @@ export default function PublicLayout() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-40 bg-[var(--color-background)] pt-24 px-4 overflow-y-auto lg:hidden"
+            className="fixed inset-0 z-[99999] bg-[var(--color-background)] pt-24 px-4 overflow-y-auto lg:hidden"
           >
             <div className="flex flex-col gap-2">
               {navLinks.map((link) => (
