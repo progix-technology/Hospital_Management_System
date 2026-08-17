@@ -22,7 +22,7 @@ export default function DepartmentsPage() {
       
       {/* Page Header */}
       <section className="relative w-full h-[400px] lg:h-[500px] flex items-center justify-center text-white overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://res.cloudinary.com/dbp97xecb/image/upload/v1785927339/departments_k7dwgb.png')] bg-cover bg-center"></div>
+        <div className="absolute inset-0 bg-[url('https://res.cloudinary.com/dbp97xecb/image/upload/f_auto,q_auto,w_1600/v1785927339/departments_k7dwgb.png')] bg-cover bg-center"></div>
         {/* Only a very subtle gradient at the bottom for text readability, no dark overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent"></div>
         <div className="container mx-auto max-w-7xl px-4 relative z-10">

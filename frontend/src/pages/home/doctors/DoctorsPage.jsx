@@ -336,7 +336,7 @@ export default function DoctorsPage() {
         {/* Background Image Container (clipped to bounds) */}
         <div className="absolute inset-0 z-0 overflow-hidden">
           <img 
-            src="https://res.cloudinary.com/dbp97xecb/image/upload/v1785925415/medisphere/about/doctors/doctors1.png" 
+            src="https://res.cloudinary.com/dbp97xecb/image/upload/f_auto,q_auto,w_1600/v1785925415/medisphere/about/doctors/doctors1.png" 
             alt="Medical Staff & Doctors" 
             className="w-full h-full object-cover opacity-60 scale-105" 
           />

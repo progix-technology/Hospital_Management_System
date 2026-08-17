@@ -1,89 +1,143 @@
-# HMS (Hospital Management System)
+# Medisphere — Hospital Management System (HMS)
 
-Short overview
-- Fullstack hospital management system with an Express + MongoDB backend and a Vite + React frontend.
-
-Repository layout
-- `backend/` — Node (Express) API server (MongoDB, JWT auth).
-- `frontend/` — Vite + React single-page app.
-
-Quick local setup
-
-Prerequisites
-- Node.js 18+ and npm/yarn
-- MongoDB connection (Atlas or local)
-
-Backend
-
-1. Copy and edit env file:
-
-   - Create `backend/.env` from `backend/.env.example` and set `MONGO_URI`, `JWT_SECRET`, and other keys.
-
-2. Install and run:
-
-```bash
-cd backend
-npm install
-# development
-npm run dev
-# production
-npm start
-```
-
-Frontend
-
-1. Copy env file:
-
-   - Create `frontend/.env` from `frontend/.env.example` and set `VITE_API_BASE_URL` if needed.
-
-2. Install and run:
-
-```bash
-cd frontend
-npm install
-npm run dev
-# build
-npm run build
-```
-
-Environment variables
-
-- `backend/.env.example` lists the backend vars the app expects (MONGO_URI, JWT_SECRET, CLOUDINARY_* if used).
-- `frontend/.env.example` shows frontend vars (VITE_API_BASE_URL).
-
-.gitignore
-
-- A sensible `.gitignore` is included to exclude `node_modules`, `.env`, build outputs and OS files.
-
-Deploying
-
-Vercel (Frontend)
-- Recommended for the frontend SPA.
-- Create a new Vercel project and point it to the repository. Set the project root to `frontend/`.
-- Build command: `npm run build` and Output directory: `dist`.
-- Add any environment variables under Project Settings → Environment Variables (e.g. `VITE_API_BASE_URL`).
-
-Render (Backend & Frontend)
-- You can deploy backend and frontend as separate services in Render.
-- A `render.yaml` template is included — update `repo` and `service` names and environment values.
-
-Notes & tips
-- Keep secrets out of Git. Use the hosting provider's environment variable UI.
-- When deploying the backend, make sure `MONGO_URI` and `JWT_SECRET` are set.
-- For Vercel, if you prefer a monorepo setup, create two projects: one for `frontend/` and one for `backend/` (or host backend elsewhere).
-
-Files added
-- `README.md` — this file
-- `.gitignore` — common ignores
-- `backend/.env.example` — example env for backend
-- `frontend/.env.example` — example env for frontend
-- `render.yaml` — Render template (update placeholders)
-- `vercel.json` — optional Vercel config template
-
-If you want, I can also:
-- add GitHub Actions CI to run lint/tests on push,
-- create a `Dockerfile` and `docker-compose.yml` for local containerized development,
-- or finish Render/Vercel templates with your repository details.
+Medisphere is a premium, fullstack, state-of-the-art **Hospital Management System (HMS)** designed for clinical workforce efficiency, patient empowerment, and seamless hospital administration. Built with high-performance modern web aesthetics, it features an Express + MongoDB backend and an interactive React + Vite frontend.
 
 ---
-Feel free to tell me which provider you prefer and I can fill in the repo-specific values.
+
+## 🌟 Key Features & Functional Modules
+
+### 1. Unified Hospital Staff & Workforce Directory (`/doctors`)
+* **Multidisciplinary Staff Directory**: Supports Medical Doctors, Nursing Staff, Lab & Scan Technicians, and Pharmacists/EMTs.
+* **Smart Filter & Search Panel**: Bespoke custom-designed search bar with micro-labels, quick-department suggestion chips, and checkmarked animated Framer Motion dropdown popovers.
+* **Interactive Counter Cards**: Real-time counters showing total active workforce by department, functioning as interactive toggles for direct filtering.
+
+### 2. Dedicated Dynamic Services Module (`/services/:id`)
+* Dedicated landing page rendering dynamic procedures, hardware specifications, and FAQs for key hospital divisions:
+  * **Diagnostic Services**: 3T MRI, 128-slice CT scan, Digital X-Rays, Ultrasound.
+  * **Laboratory Services**: NABL Accredited pathology labs, home sample collection workflows.
+  * **Surgical Services**: Ultra-clean Class 100 Modular Operation Theatres.
+  * **24/7 In-House Pharmacy**: Inventory cold-chain tracking and express home deliveries.
+  * **Ambulance Services**: Advanced Life Support (ALS) mobile ICUs with transport ventilators.
+
+### 3. Contact & Feedback Desk with SMTP Integration (`/contact`)
+* Powered by **Nodemailer** for fully automated email routing.
+* **Double-Action Emailing**: 
+  1. Instant notification with formatted HTML table containing details of user query forwarded to the admin desk.
+  2. Automatic confirmation/acknowledgement auto-reply dispatched to the user's email address.
+
+### 4. Patient Portal (User Dashboard)
+* **Appointment Scheduling**: Real-time slot booking matching doctor availability.
+* **Health Tracking & Records**: Downloadable prescription histories, vital records (heart rate, blood pressure, etc.), and billing invoices.
+
+### 5. Doctor & Technician Portal
+* **Appointments Queue**: Categorized dashboard to track, update status, and manage consultations.
+* **E-Prescription & Vitals Engine**: Digitally update patient vitals, write clinical remarks, and issue NABL diagnostic lab tests.
+* **Lab Sample & Test Manager**: Manage NABL requests, update sample processing state, and upload test reports.
+
+### 6. Admin Panel
+* **Analytics Dashboard**: Performance metrics visualised with Recharts (daily appointment volume, revenue flows, department occupancy).
+* **Workforce Registry**: Full CRUD controls to add, update, and manage medical staff profiles.
+
+---
+
+## 📂 Project Architecture & Directory Layout
+
+```bash
+├── backend/
+│   ├── config/             # Database connection setup
+│   ├── controllers/        # Core business logic (auth, appointments, users)
+│   ├── models/             # Mongoose schemas (User, Patient, Doctor, Appointment)
+│   ├── routes/             # Express API Endpoints (auth, users, appointments, contact)
+│   ├── utils/              # JWT generator, Nodemailer transporter
+│   ├── server.js           # Entry point for backend
+│   └── package.json
+│
+├── frontend/
+│   ├── public/             # Static assets (favicons, hospital banners, app logo)
+│   ├── src/
+│   │   ├── components/     # Reusable UI components (Buttons, Inputs, Sidebar, Navbar)
+│   │   ├── layouts/        # Layout wrappers (PublicLayout, DashboardLayout, UserLayout)
+│   │   ├── pages/          # Public and Dashboard pages (Home, Doctors, Services, Admin pages)
+│   │   ├── utils/          # Tailwind class merger utilities
+│   │   ├── main.jsx        # Global entry point and Axios URL interceptor config
+│   │   └── index.css       # Core Tailwind CSS tokens and themes
+│   ├── vercel.json         # SPA routing fallback for Vercel
+│   └── package.json
+│
+├── render.yaml             # Multi-service Render deployment template
+└── README.md
+```
+
+---
+
+## ⚙️ Quick Local Setup
+
+### Prerequisites
+* **Node.js** v18 or higher installed.
+* **MongoDB** connection string (local instance or MongoDB Atlas).
+
+### 1. Setup Backend
+1. Navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
+2. Create `.env` file from `.env.example` and fill in:
+   ```env
+   PORT=5000
+   MONGO_URI=your_mongodb_connection_string
+   JWT_SECRET=your_jwt_secret_key
+   CLOUDINARY_CLOUD_NAME=your_cloudinary_name
+   CLOUDINARY_API_KEY=your_cloudinary_api_key
+   CLOUDINARY_API_SECRET=your_cloudinary_secret
+
+   # SMTP Configuration (e.g. Gmail App Password)
+   SMTP_HOST=smtp.gmail.com
+   SMTP_PORT=587
+   SMTP_SECURE=false
+   SMTP_USER=your_email@gmail.com
+   SMTP_PASS=your_gmail_app_password
+   SMTP_FROM_NAME="Medisphere Support"
+   SMTP_FROM_EMAIL=your_email@gmail.com
+   CONTACT_RECEIVER_EMAIL=your_email@gmail.com
+   ```
+3. Install dependencies and start server in development mode:
+   ```bash
+   npm install
+   npm run dev
+   ```
+
+### 2. Setup Frontend
+1. Navigate to the frontend directory:
+   ```bash
+   cd ../frontend
+   ```
+2. Create `.env` file and set your API base URL:
+   ```env
+   VITE_API_URL=http://localhost:5000
+   ```
+3. Install dependencies and start client server:
+   ```bash
+   npm install
+   npm run dev
+   ```
+4. Access the web interface at `http://localhost:5173`.
+
+---
+
+## 🚀 Production Deployment
+
+### Deploy Backend (on Render)
+* Create a **Web Service** pointing to your repository on Render.
+* **Build Command**: `cd backend && npm install`
+* **Start Command**: `cd backend && npm start` (or `node server.js`)
+* **Environment Variables**: Copy all variables from `backend/.env`. Ensure there are no spaces or trailing text in the values.
+
+### Deploy Frontend (on Vercel)
+* Import the repository in **Vercel**.
+* Set **Root Directory** to `frontend`.
+* Vercel will auto-configure build commands (`npm run build`) and output directory (`dist`).
+* Add the **Environment Variable**: `VITE_API_URL` pointing to your Render backend domain URL (e.g., `https://hms-backend.onrender.com`).
+* Deployment handles routing fallbacks seamlessly using the pre-configured [**`frontend/vercel.json`**](file:///c:/Users/Vivang%20Mishra/Desktop/HMS/frontend/vercel.json) file.
+
+---
+*Developed with excellence by the Medisphere team.*

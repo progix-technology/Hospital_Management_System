@@ -49,7 +49,7 @@ export default function AboutPage() {
         {/* Background Image Placeholder */}
         <div className="absolute inset-0 z-0">
           <div className="w-full h-full bg-slate-900 relative">
-            <img src="https://res.cloudinary.com/dbp97xecb/image/upload/v1785925408/medisphere/about/about-hero-bg.png" alt="Hospital Exterior" className="w-full h-full object-cover opacity-80" />
+            <img src="https://res.cloudinary.com/dbp97xecb/image/upload/f_auto,q_auto,w_1600/v1785925408/medisphere/about/about-hero-bg.png" alt="Hospital Exterior" className="w-full h-full object-cover opacity-80" />
           </div>
           {/* Lighter gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-footer)]/85 via-[var(--color-footer)]/60 to-[var(--color-footer)]/10"></div>

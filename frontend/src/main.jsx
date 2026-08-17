@@ -38,3 +38,41 @@ createRoot(document.getElementById('root')).render(
     </ErrorBoundary>
   </StrictMode>,
 )
+
+// Prefetch important hero and department images during idle time to warm cache
+const PREFETCH_IMAGES = [
+  'https://res.cloudinary.com/dbp97xecb/image/upload/f_auto,q_auto,w_1600/v1785925408/medisphere/about/about-hero-bg.png',
+  'https://res.cloudinary.com/dbp97xecb/image/upload/f_auto,q_auto,w_1600/v1785927339/departments_k7dwgb.png',
+  'https://res.cloudinary.com/dbp97xecb/image/upload/f_auto,q_auto,w_1600/v1785925415/medisphere/about/doctors/doctors1.png',
+  'https://res.cloudinary.com/dbp97xecb/image/upload/f_auto,q_auto,w_1600/v1785925417/medisphere/about/emergency.jpg'
+];
+
+function prefetchImages(urls) {
+  try {
+    urls.forEach((u) => {
+      const img = new Image();
+      img.src = u;
+    });
+  } catch (e) {
+    // no-op
+  }
+}
+
+if ('requestIdleCallback' in window) {
+  // @ts-ignore
+  requestIdleCallback(() => prefetchImages(PREFETCH_IMAGES), { timeout: 2000 });
+} else {
+  setTimeout(() => prefetchImages(PREFETCH_IMAGES), 2000);
+}
+
+// Register service worker to cache hero images for faster repeat loads
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then((reg) => {
+      // registration successful
+      console.debug('Service worker registered:', reg.scope);
+    }).catch((err) => {
+      console.debug('Service worker registration failed:', err);
+    });
+  });
+}

@@ -239,7 +239,7 @@ export default function ServicesPage() {
 
       {/* Hero */}
       <section className="relative w-full h-[400px] lg:h-[500px] flex items-center justify-center text-white overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://res.cloudinary.com/dbp97xecb/image/upload/v1785925417/medisphere/about/emergency.jpg')] bg-cover bg-center"></div>
+        <div className="absolute inset-0 bg-[url('https://res.cloudinary.com/dbp97xecb/image/upload/f_auto,q_auto,w_1600/v1785925417/medisphere/about/emergency.jpg')] bg-cover bg-center"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/50 to-slate-900/20"></div>
         <div className="container mx-auto max-w-7xl px-4 relative z-10 text-center">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
