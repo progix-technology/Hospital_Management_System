@@ -5,6 +5,7 @@ import { Button } from '../../../components/Button';
 import { Input } from '../../../components/Input';
 import { Card, CardContent } from '../../../components/Card';
 import { ArrowLeft, Save, User, UserCheck, Stethoscope, Lock } from 'lucide-react';
+import axios from 'axios';
 
 export default function AddDoctor() {
   const navigate = useNavigate();
@@ -41,26 +42,15 @@ export default function AddDoctor() {
       const isTech = formData.role === 'lab_technician';
       const namePrefix = isTech ? '' : 'Dr. ';
       
-      const response = await fetch('http://localhost:5000/api/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          name: `${namePrefix}${formData.firstName} ${formData.lastName}`,
-          email: formData.email,
-          password: formData.password,
-          role: formData.role,
-          phone: formData.phone,
-          gender: formData.gender,
-          specialty: isTech ? 'Laboratory Tech' : formData.specialty
-        })
+      const { data } = await axios.post('/api/auth/register', {
+        name: `${namePrefix}${formData.firstName} ${formData.lastName}`,
+        email: formData.email,
+        password: formData.password,
+        role: formData.role,
+        phone: formData.phone,
+        gender: formData.gender,
+        specialty: isTech ? 'Laboratory Tech' : formData.specialty
       });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to register staff');
-      }
 
       // Automatically navigate on success
       navigate('/admin/doctors');

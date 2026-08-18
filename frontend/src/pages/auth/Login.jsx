@@ -5,6 +5,7 @@ import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
 import { Mail, Lock, ArrowRight, User, Stethoscope, ShieldCheck } from 'lucide-react';
 import { cn } from '../../utils/cn';
+import axios from 'axios';
 
 export default function Login() {
   const [role, setRole] = useState('patient');
@@ -40,28 +41,20 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:5000/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
+      const { data } = await axios.post('/api/auth/login', { email, password });
 
-      const data = await response.json();
+      // Save token & user data to localStorage
+      localStorage.setItem('userInfo', JSON.stringify(data));
 
-      if (response.ok) {
-        // Save token & user data to localStorage
-        localStorage.setItem('userInfo', JSON.stringify(data));
+      // Redirect based on actual user role
+      if (data.role === 'admin') navigate('/admin/dashboard');
+      else if (data.role === 'doctor') navigate('/doctor/dashboard');
+      else if (data.role === 'lab_technician') navigate('/lab/dashboard');
+      else navigate('/portal');
 
-        // Redirect based on actual user role
-        if (data.role === 'admin') navigate('/admin/dashboard');
-        else if (data.role === 'doctor') navigate('/doctor/dashboard');
-        else if (data.role === 'lab_technician') navigate('/lab/dashboard');
-        else navigate('/portal');
-
-      } else {
-        let errorMessage = data.message || 'Invalid credentials';
+    } catch (err) {
+      if (err.response && err.response.data) {
+        let errorMessage = err.response.data.message || 'Invalid credentials';
         if (
           errorMessage.toLowerCase().includes('buffering timed out') || 
           errorMessage.toLowerCase().includes('mongodb') || 
@@ -70,9 +63,9 @@ export default function Login() {
           errorMessage = 'Our servers are currently experiencing high traffic. Please try again in a few moments.';
         }
         setError(errorMessage);
+      } else {
+        setError('Unable to connect to the server. Please try again later.');
       }
-    } catch (err) {
-      setError('Unable to connect to the server. Please try again later.');
     }
     setLoading(false);
   };
