@@ -26,9 +26,9 @@ export function Sidebar({ isOpen, onClose }) {
     <div className="flex flex-col h-full bg-[var(--color-background)]">
       {/* Sidebar Header */}
       <div className="flex h-16 shrink-0 items-center justify-between px-6 border-b border-[var(--color-border)]">
-        <Link to="/admin/dashboard" onClick={onClose} className="flex items-center gap-3 hover:bg-[var(--color-muted)]/50 transition-colors cursor-pointer">
-          <img src="/applogo.png" alt="Logo" className="h-8 w-8 object-contain rounded-lg p-1 bg-[var(--color-primary)]" />
-          <span className="text-xl font-bold tracking-tight text-[var(--color-foreground)]">Medisphere</span>
+        <Link to="/admin/dashboard" onClick={onClose} className="flex items-center gap-2.5 hover:bg-[var(--color-muted)]/50 transition-colors cursor-pointer">
+          <img src="/applogo.png" alt="Logo" className="h-8 w-8 object-contain rounded-lg p-0.5 bg-white shadow-xs" />
+          <span className="text-xl font-black tracking-tight bg-gradient-to-r from-[#0284c7] via-[#0d9488] to-[#16a34a] bg-clip-text text-transparent">Medisphere</span>
         </Link>
         {onClose && (
           <button onClick={onClose} className="lg:hidden p-1 text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)]">

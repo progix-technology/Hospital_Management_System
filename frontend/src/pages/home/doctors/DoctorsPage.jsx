@@ -330,9 +330,9 @@ export default function DoctorsPage() {
     <div className="flex flex-col min-h-screen bg-slate-50">
       
       {/* ======================================================== */}
-      {/* HERO BANNER SECTION (z-30, no overflow clipping)         */}
+      {/* HERO BANNER SECTION (Full height on mobile with navbar clearance) */}
       {/* ======================================================== */}
-      <section className="relative w-full h-[400px] lg:h-[500px] flex items-start justify-center text-white bg-slate-900 overflow-visible pt-16 lg:pt-20">
+      <section className="relative w-full min-h-[100dvh] md:min-h-[500px] flex flex-col justify-center items-center text-white bg-slate-900 overflow-hidden pt-24 sm:pt-24 lg:pt-28 pb-12 sm:pb-16">
         {/* Background Image Container (clipped to bounds) */}
         <div className="absolute inset-0 z-0 overflow-hidden">
           <img 
@@ -344,36 +344,36 @@ export default function DoctorsPage() {
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950/85 via-transparent to-slate-950/85"></div>
         </div>
 
-        <div className="container mx-auto max-w-7xl px-4 relative z-50 text-center">
+        <div className="container mx-auto max-w-7xl px-3 sm:px-4 relative z-10 text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-            <div className="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-white/15 text-[var(--color-accent)] text-xs font-extrabold mb-5 border border-white/25 backdrop-blur-sm shadow-sm">
-              <Sparkles className="h-4 w-4" /> Hospital Clinical Workforce & Medical Staff
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 py-1 px-3 sm:py-1.5 sm:px-4 rounded-full bg-white/15 text-[var(--color-accent)] text-[10px] sm:text-xs font-extrabold mb-4 sm:mb-5 border border-white/25 backdrop-blur-sm shadow-sm">
+              <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4" /> Hospital Clinical Workforce & Medical Staff
             </div>
             
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-extrabold mb-4 text-white drop-shadow-lg tracking-tight">
+            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-extrabold mb-3 text-white drop-shadow-lg tracking-tight">
               Our Doctors, Nurses & Staff Directory
             </h1>
             
-            <p className="text-base md:text-lg text-white/90 max-w-2xl mx-auto mb-8 leading-relaxed font-medium drop-shadow-md">
+            <p className="text-xs sm:text-base md:text-lg text-white/90 max-w-2xl mx-auto mb-6 sm:mb-8 leading-relaxed font-medium drop-shadow-md">
               Meet our multidisciplinary team of board-certified doctors, critical care nurses, laboratory technicians, and emergency paramedics dedicated to your healing.
             </p>
             
-            {/* Bespoke Human-Crafted Search Bar */}
-            <div className="relative z-40 max-w-4xl mx-auto bg-white/95 backdrop-blur-md rounded-2xl md:rounded-3xl p-2.5 md:p-3 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.35)] border border-white/50 ring-1 ring-slate-900/5 text-left">
-              <div className="flex flex-col md:flex-row items-center gap-2">
+            {/* Bespoke Human-Crafted Search Bar (Reduced width on mobile & sleek fit) */}
+            <div className="relative z-40 max-w-[92%] sm:max-w-2xl md:max-w-3xl lg:max-w-4xl mx-auto bg-white/95 backdrop-blur-md rounded-2xl md:rounded-3xl p-1.5 sm:p-2.5 md:p-3 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.35)] border border-white/50 ring-1 ring-slate-900/5 text-left">
+              <div className="flex flex-col md:flex-row items-center gap-1.5 sm:gap-2">
                 
                 {/* 1. Specialist / Staff Name Search Field */}
-                <div className="flex items-center gap-3 px-3 py-2 flex-grow w-full rounded-xl hover:bg-slate-50/80 transition-colors">
-                  <div className="h-10 w-10 rounded-xl bg-emerald-50 text-[#0f6c4f] flex items-center justify-center shrink-0 shadow-2xs">
-                    <Search className="h-4.5 w-4.5" />
+                <div className="flex items-center gap-2 sm:gap-3 px-2.5 sm:px-3 py-1.5 sm:py-2 flex-grow w-full rounded-xl hover:bg-slate-50/80 transition-colors">
+                  <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-emerald-50 text-[#0f6c4f] flex items-center justify-center shrink-0 shadow-2xs">
+                    <Search className="h-3.5 w-3.5 sm:h-4.5 sm:w-4.5" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <label className="block text-[10px] font-extrabold uppercase tracking-wider text-slate-400 leading-none mb-1">
+                    <label className="block text-[8px] sm:text-[10px] font-extrabold uppercase tracking-wider text-slate-400 leading-none mb-0.5 sm:mb-1">
                       Find Specialist / Staff
                     </label>
                     <input 
                       type="text"
-                      placeholder="e.g. Dr. Sarah, Cardiologist, ICU Nurse..." 
+                      placeholder="e.g. Dr. Sarah, Cardiologist..." 
                       className="w-full text-xs sm:text-sm font-bold text-slate-800 placeholder:text-slate-400 bg-transparent border-0 p-0 focus:outline-none focus:ring-0 truncate"
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
@@ -391,27 +391,27 @@ export default function DoctorsPage() {
                 </div>
 
                 {/* Subtle Vertical Divider */}
-                <div className="h-10 w-[1px] bg-slate-200 hidden md:block mx-1 shrink-0"></div>
+                <div className="h-8 md:h-10 w-[1px] bg-slate-200 hidden md:block mx-1 shrink-0"></div>
 
                 {/* 2. Custom Animated Department Dropdown Selector */}
                 <div ref={deptDropdownRef} className="relative z-50 flex-grow md:max-w-xs w-full">
                   <button
                     type="button"
                     onClick={() => setIsDeptOpen(prev => !prev)}
-                    className="flex items-center gap-3 px-3 py-2 w-full rounded-xl hover:bg-slate-50/80 transition-colors text-left cursor-pointer group"
+                    className="flex items-center gap-2 sm:gap-3 px-2.5 sm:px-3 py-1.5 sm:py-2 w-full rounded-xl hover:bg-slate-50/80 transition-colors text-left cursor-pointer group"
                   >
-                    <div className="h-10 w-10 rounded-xl bg-blue-50 group-hover:bg-blue-100 text-blue-600 flex items-center justify-center shrink-0 shadow-2xs transition-colors">
-                      <Building className="h-4.5 w-4.5" />
+                    <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-blue-50 group-hover:bg-blue-100 text-blue-600 flex items-center justify-center shrink-0 shadow-2xs transition-colors">
+                      <Building className="h-3.5 w-3.5 sm:h-4.5 sm:w-4.5" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <label className="block text-[10px] font-extrabold uppercase tracking-wider text-slate-400 leading-none mb-1 cursor-pointer">
+                      <label className="block text-[8px] sm:text-[10px] font-extrabold uppercase tracking-wider text-slate-400 leading-none mb-0.5 sm:mb-1 cursor-pointer">
                         Department
                       </label>
                       <div className="text-xs sm:text-sm font-bold text-slate-800 truncate">
                         {selectedDept === 'All' ? 'All Departments' : selectedDept}
                       </div>
                     </div>
-                    <ChevronDown className={`h-4 w-4 text-slate-400 transition-transform duration-200 shrink-0 ${isDeptOpen ? 'rotate-180 text-blue-600' : ''}`} />
+                    <ChevronDown className={`h-3.5 w-3.5 sm:h-4 sm:w-4 text-slate-400 transition-transform duration-200 shrink-0 ${isDeptOpen ? 'rotate-180 text-blue-600' : ''}`} />
                   </button>
 
                   {/* Custom Popover Dropdown Menu */}
@@ -464,9 +464,9 @@ export default function DoctorsPage() {
                 {/* 3. Action Search Button */}
                 <Button 
                   onClick={() => {}}
-                  className="h-12 md:h-13 px-7 rounded-xl md:rounded-2xl bg-[#0f6c4f] hover:bg-emerald-800 text-white font-bold text-xs sm:text-sm w-full md:w-auto shadow-md hover:shadow-lg transition-all border-0 shrink-0 flex items-center justify-center gap-2 cursor-pointer"
+                  className="h-10 sm:h-12 md:h-13 px-4 sm:px-7 rounded-xl md:rounded-2xl bg-[#0f6c4f] hover:bg-emerald-800 text-white font-bold text-xs sm:text-sm w-full md:w-auto shadow-md hover:shadow-lg transition-all border-0 shrink-0 flex items-center justify-center gap-1.5 sm:gap-2 cursor-pointer"
                 >
-                  <Search className="h-4 w-4" /> Find Staff
+                  <Search className="h-3.5 w-3.5 sm:h-4 sm:w-4" /> Find Staff
                 </Button>
 
               </div>
@@ -507,20 +507,19 @@ export default function DoctorsPage() {
       </section>
 
       {/* ======================================================== */}
-      {/* DEPARTMENT NAVIGATOR (sticky)                            */}
+      {/* DEPARTMENT NAVIGATOR (sticky & fits all 4 on mobile)     */}
       {/* ======================================================== */}
-      <section className="sticky top-0 z-30 bg-white border-b border-slate-100 shadow-sm">
-        <div className="container mx-auto max-w-7xl px-4">
-          
-
-          <div className="flex justify-center overflow-x-auto gap-3 py-3" style={{ scrollbarWidth: 'none' }}>
+      <section className="sticky top-0 z-30 bg-white border-b border-slate-100 shadow-xs">
+        <div className="container mx-auto max-w-7xl px-2 sm:px-4">
+          <div className="grid grid-cols-4 gap-1 sm:gap-3 py-1.5 sm:py-3 max-w-3xl mx-auto">
             {[
-              { key: 'doctors', icon: Stethoscope, color: 'text-[#0f6c4f]', label: 'Medical Doctors', role: 'Doctor' },
-              { key: 'nurses', icon: HeartPulse, color: 'text-blue-600', label: 'Nursing Staff', role: 'Nursing Staff' },
-              { key: 'techs', icon: UserCheck, color: 'text-purple-600', label: 'Lab & Scan Techs', role: 'Lab Technician' },
-              { key: 'pharma', icon: Truck, color: 'text-amber-600', label: 'Pharma & EMTs', role: 'Pharmacist & EMT' }
+              { key: 'doctors', icon: Stethoscope, color: 'text-[#0f6c4f]', label: 'Medical Doctors', shortLabel: 'Doctors', role: 'Doctor' },
+              { key: 'nurses', icon: HeartPulse, color: 'text-blue-600', label: 'Nursing Staff', shortLabel: 'Nursing', role: 'Nursing Staff' },
+              { key: 'techs', icon: UserCheck, color: 'text-purple-600', label: 'Lab & Scan Techs', shortLabel: 'Lab Techs', role: 'Lab Technician' },
+              { key: 'pharma', icon: Truck, color: 'text-amber-600', label: 'Pharma & EMTs', shortLabel: 'Pharma & EMT', role: 'Pharmacist & EMT' }
             ].map((f) => {
               const Icon = f.icon;
+              const isSelected = selectedRole === f.role;
               return (
                 <button
                   key={f.key}
@@ -528,10 +527,17 @@ export default function DoctorsPage() {
                     setSelectedRole(prev => prev === f.role ? 'All' : f.role);
                     document.getElementById('staff-list')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   }}
-                  className={`flex flex-col items-center justify-center min-w-[140px] px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition-all ${selectedRole === f.role ? 'bg-white text-[#0f6c4f] shadow' : 'bg-white/80 text-slate-700 hover:bg-white'}`}
+                  className={`flex flex-col items-center justify-center p-1 sm:py-2.5 sm:px-3 rounded-lg sm:rounded-xl text-center transition-all cursor-pointer ${
+                    isSelected 
+                      ? 'bg-emerald-50 text-[#0f6c4f] shadow-2xs border border-emerald-200' 
+                      : 'bg-white text-slate-700 hover:bg-slate-50 border border-slate-100/60'
+                  }`}
                 >
-                  <Icon className={`h-6 w-6 ${f.color} mb-1`} />
-                  <div className="text-xs text-slate-500 uppercase">{f.label}</div>
+                  <Icon className={`h-4 w-4 sm:h-5 sm:w-5 ${f.color} mb-0.5 sm:mb-1`} />
+                  <div className="text-[7.5px] sm:text-xs font-bold uppercase tracking-tight text-slate-600 truncate w-full text-center">
+                    <span className="sm:hidden">{f.shortLabel}</span>
+                    <span className="hidden sm:inline">{f.label}</span>
+                  </div>
                 </button>
               );
             })}
@@ -540,100 +546,99 @@ export default function DoctorsPage() {
       </section>
 
       {/* ======================================================== */}
-      {/* DIRECTORY GRID                                           */}
+      {/* DIRECTORY GRID (3 Cards per line across mobile & desktop) */}
       {/* ======================================================== */}
-      <section id="staff-list" className="py-14">
-        <div className="container mx-auto max-w-7xl px-4">
+      <section id="staff-list" className="py-6 sm:py-14">
+        <div className="container mx-auto max-w-7xl px-2 sm:px-4">
           
           {/* Header Info with Active Role Badge */}
-          <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
+          <div className="flex flex-wrap items-center justify-between gap-2 sm:gap-4 mb-4 sm:mb-8">
             <div className="flex items-center gap-2">
-              <span className="text-lg font-bold text-slate-800">
+              <span className="text-sm sm:text-lg font-bold text-slate-800">
                 {selectedRole === 'All' ? 'All Hospital Staff & Doctors' : `${selectedRole} Directory`}
               </span>
-              
             </div>
 
-            <p className="text-xs font-bold text-slate-500">
-              Showing <span className="text-[#0f6c4f] font-black">{filteredStaff.length}</span> staff members
+            <p className="text-[10px] sm:text-xs font-bold text-slate-500">
+              Showing <span className="text-[#0f6c4f] font-black">{filteredStaff.length}</span> members
             </p>
           </div>
 
-          {/* Staff Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Staff Cards Grid (3 in 1 line on all screens) */}
+          <div className="grid grid-cols-3 gap-1.5 sm:gap-4 lg:gap-6">
             {filteredStaff.map((member, index) => {
               const RoleIcon = member.roleIcon;
               return (
                 <motion.div 
                   key={member.id}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: index * 0.05 }}
+                  transition={{ duration: 0.3, delay: index * 0.03 }}
                 >
-                  <Card className="border border-slate-200/80 shadow-xs hover:shadow-xl transition-all duration-300 rounded-3xl overflow-hidden bg-white group flex flex-col justify-between h-full">
+                  <Card className="border border-slate-200/80 shadow-xs hover:shadow-lg transition-all duration-300 rounded-xl sm:rounded-3xl overflow-hidden bg-white group flex flex-col justify-between h-full">
                     <CardContent className="p-0 flex flex-col justify-between h-full">
                       
                       {/* Top Header Card */}
                       <div>
-                        <div className="p-6 pb-4 border-b border-slate-100 bg-slate-50/50 flex items-start gap-4">
-                          <div className={`h-16 w-16 rounded-2xl ${member.avatarBg} text-white flex items-center justify-center font-bold text-xl shadow-md shrink-0`}>
+                        <div className="p-1.5 sm:p-5 sm:pb-4 border-b border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row items-center sm:items-start gap-1 sm:gap-4 text-center sm:text-left">
+                          <div className={`h-8 w-8 sm:h-16 sm:w-16 rounded-lg sm:rounded-2xl ${member.avatarBg} text-white flex items-center justify-center font-bold text-xs sm:text-xl shadow-2xs shrink-0`}>
                             {member.name.split(' ').slice(-1)[0][0]}
                           </div>
                           
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-2 mb-1 flex-wrap">
-                              <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold border ${member.roleBadge}`}>
-                                <RoleIcon className="h-3 w-3" /> {member.role}
+                          <div className="flex-1 min-w-0 w-full">
+                            <div className="flex items-center justify-center sm:justify-start gap-0.5 sm:gap-1.5 mb-0.5 sm:mb-1 flex-wrap">
+                              <span className={`inline-flex items-center gap-0.5 px-1 sm:px-2 py-0.2 rounded-full text-[6px] sm:text-[10px] font-bold border ${member.roleBadge}`}>
+                                <RoleIcon className="h-2 w-2 sm:h-3 sm:w-3" /> <span className="hidden sm:inline">{member.role}</span>
                               </span>
-                              <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold border ${member.deptBadge}`}>
+                              <span className={`inline-flex items-center px-1 sm:px-2 py-0.2 rounded-full text-[6px] sm:text-[10px] font-semibold border ${member.deptBadge} truncate max-w-[65px] sm:max-w-none`}>
                                 {member.dept}
                               </span>
                             </div>
                             
-                            <h3 className="text-lg font-bold text-slate-900 group-hover:text-[#0f6c4f] transition-colors truncate">
+                            <h3 className="text-[9.5px] sm:text-base lg:text-lg font-bold text-slate-900 group-hover:text-[#0f6c4f] transition-colors truncate leading-tight">
                               {member.name}
                             </h3>
-                            <p className="text-xs font-semibold text-slate-500 mt-0.5">{member.designation}</p>
+                            <p className="text-[7px] sm:text-xs font-semibold text-slate-500 mt-0.5 truncate leading-tight">{member.designation}</p>
                           </div>
                         </div>
 
                         {/* Details */}
-                        <div className="p-6 space-y-3 text-xs text-slate-600">
-                          <p className="flex items-center gap-2 font-medium">
-                            <Award className="h-4 w-4 text-[#0f6c4f] shrink-0" />
-                            <span className="truncate">{member.qualification} • <strong>{member.exp} Exp</strong></span>
+                        <div className="p-1.5 sm:p-5 space-y-0.5 sm:space-y-2 text-[7px] sm:text-xs text-slate-600">
+                          <p className="flex items-center gap-1 sm:gap-2 font-medium">
+                            <Award className="h-2.5 w-2.5 sm:h-4 sm:w-4 text-[#0f6c4f] shrink-0" />
+                            <span className="truncate">{member.exp} Exp</span>
                           </p>
-                          <p className="flex items-center gap-2 font-medium">
+                          <p className="hidden sm:flex items-center gap-2 font-medium">
                             <Clock className="h-4 w-4 text-emerald-600 shrink-0" />
-                            <span>{member.availability}</span>
+                            <span className="truncate">{member.availability}</span>
                           </p>
-                          <p className="flex items-center gap-2 font-medium">
+                          <p className="hidden sm:flex items-center gap-2 font-medium">
                             <MapPin className="h-4 w-4 text-slate-400 shrink-0" />
-                            <span className="text-slate-500">{member.campus}</span>
+                            <span className="text-slate-500 truncate">{member.campus}</span>
                           </p>
                         </div>
                       </div>
 
                       {/* Bottom Actions */}
-                      <div className="p-6 pt-0">
-                        <div className="pt-3 border-t border-slate-100 flex gap-2.5">
+                      <div className="p-1.5 sm:p-5 sm:pt-0">
+                        <div className="pt-1 sm:pt-3 border-t border-slate-100 flex gap-1 sm:gap-2.5">
                           {member.role === 'Doctor' ? (
                             <Link to={`/book-appointment?doctor=${member.id}`} className="flex-1">
-                              <Button className="w-full h-10 rounded-xl bg-[#0f6c4f] hover:bg-emerald-800 text-white font-bold text-xs shadow-xs cursor-pointer">
-                                <Calendar className="mr-1.5 h-3.5 w-3.5" /> Book Consultation
+                              <Button className="w-full h-6 sm:h-10 rounded-md sm:rounded-xl bg-[#0f6c4f] hover:bg-emerald-800 text-white font-bold text-[7.5px] sm:text-xs shadow-2xs cursor-pointer px-1">
+                                <Calendar className="mr-0.5 sm:mr-1.5 h-2 w-2 sm:h-3.5 sm:w-3.5" /> Book
                               </Button>
                             </Link>
                           ) : (
                             <a href="tel:+918953208952" className="flex-1">
-                              <Button variant="outline" className="w-full h-10 rounded-xl border-emerald-200 text-[#0f6c4f] hover:bg-emerald-50 font-bold text-xs cursor-pointer">
-                                <Phone className="mr-1.5 h-3.5 w-3.5" /> Contact Desk
+                              <Button variant="outline" className="w-full h-6 sm:h-10 rounded-md sm:rounded-xl border-emerald-200 text-[#0f6c4f] hover:bg-emerald-50 font-bold text-[7.5px] sm:text-xs cursor-pointer px-1">
+                                <Phone className="mr-0.5 sm:mr-1.5 h-2 w-2 sm:h-3.5 sm:w-3.5" /> Call
                               </Button>
                             </a>
                           )}
                           <Button 
                             variant="outline" 
                             onClick={() => alert(`👨‍⚕️ ${member.name}\nDesignation: ${member.designation}\nDepartment: ${member.dept}\nShift: ${member.availability}\nContact: ${member.phone}`)}
-                            className="rounded-xl px-3.5 h-10 border-slate-200 text-slate-600 hover:bg-slate-50 text-xs font-bold cursor-pointer"
+                            className="hidden sm:inline-flex rounded-xl px-3.5 h-10 border-slate-200 text-slate-600 hover:bg-slate-50 text-xs font-bold cursor-pointer"
                           >
                             Details
                           </Button>

@@ -234,15 +234,13 @@ export default function DoctorLayout() {
         
         {/* Logo Section (Top Left) */}
         <div className="h-16 flex items-center px-2 border-b border-slate-100 shrink-0">
-          <Link to={isLabTech ? "/lab/dashboard" : "/doctor/dashboard"} className="flex items-center gap-2.5">
-            <div className="h-9 w-9 rounded-xl bg-[#0f6c4f] text-white flex items-center justify-center font-bold shadow-xs">
-              <Activity className="h-5 w-5" />
-            </div>
+          <Link to={isLabTech ? "/lab/dashboard" : "/doctor/dashboard"} className="flex items-center gap-2">
+            <img src="/applogo.png" alt="Logo" className="h-9 w-9 object-contain shrink-0" />
             <div>
-              <span className="text-base font-extrabold tracking-tight text-slate-900 leading-none block">
+              <span className="text-base font-black tracking-tight bg-gradient-to-r from-[#0284c7] via-[#0d9488] to-[#16a34a] bg-clip-text text-transparent leading-none block">
                 Medisphere
               </span>
-              <span className="text-[9px] font-semibold text-slate-400 block mt-0.5">
+              <span className="text-[8.5px] uppercase tracking-wider font-bold text-slate-400 block mt-0.5">
                 Hospital & Research
               </span>
             </div>

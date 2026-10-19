@@ -12,18 +12,32 @@ import userRoutes from './routes/userRoutes.js';
 import appointmentRoutes from './routes/appointmentRoutes.js';
 import contactRoutes from './routes/contactRoutes.js';
 
+// Rate Limiters
+import { 
+  globalLimiter, 
+  authLimiter, 
+  contactLimiter, 
+  appointmentLimiter 
+} from './middleware/rateLimiter.js';
+
 const app = express();
+
+// Trust reverse proxy for accurate IP extraction (Render, Cloudflare, Nginx, etc.)
+app.set('trust proxy', 1);
 
 // Middleware with increased payload size limits for PDF base64 uploads
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors());
 
-// Mount Routes
-app.use('/api/auth', authRoutes);
+// Apply Global Rate Limiting across all /api routes
+app.use('/api', globalLimiter);
+
+// Mount Routes with specific security limiters
+app.use('/api/auth', authLimiter, authRoutes);
+app.use('/api/contact', contactLimiter, contactRoutes);
+app.use('/api/appointments', appointmentLimiter, appointmentRoutes);
 app.use('/api/users', userRoutes);
-app.use('/api/appointments', appointmentRoutes);
-app.use('/api/contact', contactRoutes);
 
 // Basic Route
 app.get('/', (req, res) => {

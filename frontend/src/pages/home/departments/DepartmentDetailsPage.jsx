@@ -133,8 +133,8 @@ export default function DepartmentDetailsPage() {
   return (
     <div className="bg-[var(--color-background)] min-h-screen">
       
-      {/* Breadcrumb & Header Section */}
-      <section className="bg-slate-900 pt-10 pb-20 relative overflow-hidden">
+      {/* Breadcrumb & Header Section (Full height on mobile) */}
+      <section className="bg-slate-900 min-h-[100dvh] sm:min-h-0 pt-16 pb-20 flex items-center relative overflow-hidden">
         {/* Abstract Background Elements */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--color-primary)]/20 rounded-full blur-3xl translate-x-1/3 -translate-y-1/3"></div>
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-[var(--color-accent)]/10 rounded-full blur-2xl -translate-x-1/2 translate-y-1/2"></div>
@@ -148,15 +148,15 @@ export default function DepartmentDetailsPage() {
               <ChevronRight className="h-4 w-4" />
               <span className="text-white">{department.title}</span>
             </div>
-            <div className="inline-flex items-center justify-center h-16 w-16 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 mb-6">
-              <Icon className="h-8 w-8 text-[var(--color-accent)]" />
+            <div className="inline-flex items-center justify-center h-14 w-14 sm:h-16 sm:w-16 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 mb-5 sm:mb-6">
+              <Icon className="h-7 w-7 sm:h-8 sm:w-8 text-[var(--color-accent)]" />
             </div>
-            <h1 className="text-4xl md:text-6xl font-serif italic text-slate-200 mb-4 drop-shadow-md">{department.title} Department</h1>
-            <p className="text-lg text-slate-300 leading-relaxed">{department.shortDesc}</p>
+            <h1 className="text-2xl sm:text-4xl md:text-5xl font-serif italic text-slate-200 mb-3 sm:mb-4 drop-shadow-md">{department.title} Department</h1>
+            <p className="text-sm sm:text-base md:text-lg text-slate-300 leading-relaxed">{department.shortDesc}</p>
           </div>
-          <div>
-            <Link to="/book-appointment">
-              <Button className="h-14 px-8 text-lg rounded-full bg-white text-slate-900 hover:bg-slate-100 shadow-xl transition-all w-full md:w-auto">
+          <div className="w-full md:w-auto">
+            <Link to="/book-appointment" className="w-full block md:inline-block">
+              <Button className="h-12 sm:h-14 px-6 sm:px-8 text-base sm:text-lg rounded-full bg-white text-slate-900 hover:bg-slate-100 shadow-xl transition-all w-full md:w-auto">
                 Book Appointment
               </Button>
             </Link>
@@ -165,18 +165,18 @@ export default function DepartmentDetailsPage() {
       </section>
 
       {/* Main Content Area */}
-      <section className="py-16 -mt-10 relative z-20">
+      <section className="py-10 sm:py-16 -mt-6 sm:-mt-10 relative z-20">
         <div className="container mx-auto max-w-[1300px] px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-10">
             
             {/* Left Col - Overview & Image */}
-            <div className="lg:col-span-2 space-y-10">
+            <div className="lg:col-span-2 space-y-6 sm:space-y-10">
               <div className="bg-white rounded-3xl p-2 shadow-sm border border-[var(--color-border)] overflow-hidden">
-                <img src={department.image} alt={department.title} className="w-full h-[400px] object-cover rounded-2xl" />
+                <img src={department.image} alt={department.title} loading="lazy" decoding="async" className="w-full h-[220px] sm:h-[320px] md:h-[400px] object-cover rounded-2xl" />
               </div>
 
-              <div className="bg-white rounded-3xl p-8 md:p-10 shadow-sm border border-[var(--color-border)]">
-                <h2 className="text-2xl font-serif font-bold text-[var(--color-heading)] mb-4">Department Overview</h2>
+              <div className="bg-white rounded-3xl p-5 sm:p-8 md:p-10 shadow-sm border border-[var(--color-border)]">
+                <h2 className="text-xl sm:text-2xl font-serif font-bold text-[var(--color-heading)] mb-4">Department Overview</h2>
                 <div className="w-12 h-1 bg-[var(--color-primary)] rounded-full mb-6"></div>
                 <p className="text-slate-600 leading-relaxed text-lg mb-8">
                   {department.longDesc}

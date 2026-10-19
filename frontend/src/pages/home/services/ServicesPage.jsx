@@ -237,30 +237,30 @@ export default function ServicesPage() {
   return (
     <div className="flex flex-col min-h-screen bg-white">
 
-      {/* Hero */}
-      <section className="relative w-full h-[400px] lg:h-[500px] flex items-center justify-center text-white overflow-hidden">
+      {/* Hero (Full height on mobile) */}
+      <section className="relative w-full min-h-[100dvh] sm:min-h-[440px] lg:h-[500px] py-14 sm:py-20 flex items-center justify-center text-white overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://res.cloudinary.com/dbp97xecb/image/upload/f_auto,q_auto,w_1600/v1785925417/medisphere/about/emergency.jpg')] bg-cover bg-center"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/50 to-slate-900/20"></div>
         <div className="container mx-auto max-w-7xl px-4 relative z-10 text-center">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <span className="inline-block bg-white/10 border border-white/20 text-white/90 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-5 backdrop-blur-sm">
+            <span className="inline-block bg-white/10 border border-white/20 text-white/90 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-4 sm:mb-5 backdrop-blur-sm">
               Our Services
             </span>
-            <h1 className="text-4xl md:text-6xl font-bold mb-5 leading-tight">
+            <h1 className="text-2xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-5 leading-tight">
               Complete Medical Services<br />
               <span className="text-[var(--color-accent)]">Under One Roof</span>
             </h1>
-            <p className="text-white/80 text-lg max-w-2xl mx-auto">
+            <p className="text-white/80 text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
               From emergency trauma care to routine diagnostics, Medisphere delivers world-class medical services 24 hours a day, every single day.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Service Navigator Tabs */}
-      <section className="sticky top-0 z-30 bg-white border-b border-slate-100 shadow-sm">
-        <div className="container mx-auto max-w-7xl px-4">
-          <div className="flex justify-center overflow-x-auto gap-1 py-3" style={{ scrollbarWidth: 'none' }}>
+      {/* Service Navigator Tabs (2 in 1 line on mobile, perfectly fit in 1 row on web view) */}
+      <section className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
+        <div className="container mx-auto max-w-7xl px-2 sm:px-4">
+          <div className="grid grid-cols-2 md:grid-cols-6 gap-1.5 sm:gap-2 lg:gap-2.5 py-2 sm:py-3 max-w-6xl mx-auto">
             {services.map((s) => {
               const Icon = s.icon;
               return (
@@ -270,13 +270,14 @@ export default function ServicesPage() {
                     setActiveService(s.id);
                     document.getElementById(s.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   }}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-all ${activeService === s.id
-                    ? 'bg-[var(--color-primary)] text-white shadow'
-                    : 'text-slate-600 hover:bg-slate-50'
-                    }`}
+                  className={`flex items-center justify-center gap-1.5 px-2 lg:px-3 py-2 rounded-lg lg:rounded-full text-xs lg:text-[13px] font-semibold transition-all border cursor-pointer active:scale-95 ${
+                    activeService === s.id
+                      ? 'bg-[var(--color-primary)] text-white shadow-xs border-[var(--color-primary)]'
+                      : 'text-slate-600 hover:bg-slate-50 border-slate-200 bg-white'
+                  }`}
                 >
-                  <Icon className="h-4 w-4" />
-                  {s.title}
+                  <Icon className="h-3.5 w-3.5 shrink-0" />
+                  <span className="truncate">{s.title}</span>
                 </button>
               );
             })}
@@ -284,9 +285,9 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Services List */}
-      <section className="py-16 bg-slate-50">
-        <div className="container mx-auto max-w-7xl px-4 space-y-10">
+      {/* Services List (Mobile-Optimized & Compact) */}
+      <section className="py-6 sm:py-16 bg-slate-50">
+        <div className="container mx-auto max-w-7xl px-2 sm:px-4 space-y-4 sm:space-y-10">
           {services.map((service, idx) => {
             const Icon = service.icon;
             const isExpanded = expandedId === service.id;
@@ -294,61 +295,61 @@ export default function ServicesPage() {
               <motion.div
                 key={service.id}
                 id={service.id}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.05 }}
-                className={`bg-white rounded-3xl shadow-sm border ${service.border} overflow-hidden`}
+                transition={{ duration: 0.35, delay: idx * 0.04 }}
+                className={`bg-white rounded-2xl sm:rounded-3xl shadow-xs border ${service.border} overflow-hidden`}
               >
                 {/* Card */}
                 <div className="grid grid-cols-1 lg:grid-cols-5">
                   {/* Image */}
-                  <div className="lg:col-span-2 h-56 lg:h-auto relative overflow-hidden">
-                    <img src={service.image} alt={service.title} className="w-full h-full object-cover" />
+                  <div className="lg:col-span-2 h-40 sm:h-56 lg:h-auto relative overflow-hidden">
+                    <img src={service.image} alt={service.title} loading="lazy" decoding="async" className="w-full h-full object-cover" />
                   </div>
 
                   {/* Content */}
-                  <div className="lg:col-span-3 p-8 flex flex-col justify-between">
+                  <div className="lg:col-span-3 p-3.5 sm:p-8 flex flex-col justify-between">
                     <div>
-                      <div className="flex items-start gap-4 mb-4">
-                        <div className={`p-3 rounded-2xl ${service.bg} shrink-0`}>
-                          <Icon className={`h-7 w-7 ${service.color}`} />
+                      <div className="flex items-start gap-2.5 sm:gap-4 mb-2.5 sm:mb-4">
+                        <div className={`p-2 sm:p-3 rounded-xl sm:rounded-2xl ${service.bg} shrink-0`}>
+                          <Icon className={`h-5 w-5 sm:h-7 sm:w-7 ${service.color}`} />
                         </div>
-                        <div>
-                          <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${service.badgeBg}`}>
+                        <div className="min-w-0 flex-1">
+                          <span className={`text-[8.5px] sm:text-xs font-bold px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full ${service.badgeBg}`}>
                             {service.badge}
                           </span>
-                          <h2 className="text-2xl font-bold text-slate-900 mt-2">{service.title}</h2>
-                          <p className={`text-sm font-semibold ${service.color} mt-0.5`}>{service.subtitle}</p>
+                          <h2 className="text-base sm:text-2xl font-bold text-slate-900 mt-1 sm:mt-2 truncate">{service.title}</h2>
+                          <p className={`text-xs sm:text-sm font-semibold ${service.color} mt-0.5 truncate`}>{service.subtitle}</p>
                         </div>
                       </div>
-                      <p className="text-slate-600 leading-relaxed mb-5">{service.shortDesc}</p>
+                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-3 sm:mb-5 line-clamp-2 sm:line-clamp-none">{service.shortDesc}</p>
 
                       {/* Stats Row */}
-                      <div className="grid grid-cols-3 gap-3 mb-5">
+                      <div className="grid grid-cols-3 gap-1.5 sm:gap-3 mb-3 sm:mb-5">
                         {service.stats.map((stat, i) => (
-                          <div key={i} className={`p-3 rounded-xl ${service.bg} text-center`}>
-                            <div className={`text-lg font-black ${service.color}`}>{stat.value}</div>
-                            <div className="text-[10px] text-slate-500 font-medium uppercase tracking-wide mt-0.5">{stat.label}</div>
+                          <div key={i} className={`p-1.5 sm:p-3 rounded-lg sm:rounded-xl ${service.bg} text-center`}>
+                            <div className={`text-sm sm:text-lg font-black ${service.color}`}>{stat.value}</div>
+                            <div className="text-[8px] sm:text-[10px] text-slate-500 font-medium uppercase tracking-wide mt-0.5 truncate">{stat.label}</div>
                           </div>
                         ))}
                       </div>
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-4 pt-1">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-4 pt-1">
                       <Link 
                         to={`/services/${service.id === 'diagnostic' ? 'diagnostic-services' : service.id === 'laboratory' ? 'laboratory-services' : service.id === 'surgical' ? 'surgical-services' : service.id === 'ambulance' ? 'ambulance-services' : service.id}`}
-                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#0f6c4f] hover:bg-emerald-800 text-white text-xs font-bold shadow-xs transition-all"
+                        className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-[#0f6c4f] hover:bg-emerald-800 text-white text-[10px] sm:text-xs font-bold shadow-xs transition-all"
                       >
-                        View Dedicated Page <ArrowRight className="h-3.5 w-3.5" />
+                        Dedicated Page <ArrowRight className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
                       </Link>
                       <button
                         onClick={() => toggleExpand(service.id)}
-                        className={`flex items-center gap-1.5 text-xs font-bold ${service.color} hover:opacity-80 transition-opacity`}
+                        className={`flex items-center gap-1 text-[10px] sm:text-xs font-bold ${service.color} hover:opacity-80 transition-opacity cursor-pointer`}
                       >
-                        {isExpanded ? 'Collapse Overview' : 'Quick Preview'}
+                        {isExpanded ? 'Collapse' : 'Preview'}
                         <motion.div animate={{ rotate: isExpanded ? 180 : 0 }} transition={{ duration: 0.3 }}>
-                          <ChevronDown className="h-3.5 w-3.5" />
+                          <ChevronDown className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
                         </motion.div>
                       </button>
                     </div>

@@ -147,26 +147,26 @@ export default function LegalPage() {
 
   return (
     <div className="min-h-screen bg-[#f8fafc]">
-      {/* Hero Banner */}
-      <div className="bg-gradient-to-br from-[#0f6c4f] to-emerald-800 text-white py-20 px-6">
+      {/* Hero Banner (Full height on mobile) */}
+      <div className="bg-gradient-to-br from-[#0f6c4f] to-emerald-800 text-white min-h-[100dvh] sm:min-h-0 flex flex-col justify-center py-12 sm:py-20 px-4 sm:px-6">
         <div className="max-w-4xl mx-auto">
-          <div className="flex items-center gap-2 text-emerald-200 text-sm mb-4 font-medium">
+          <div className="flex items-center gap-2 text-emerald-200 text-xs sm:text-sm mb-4 font-medium">
             <Link to="/" className="hover:text-white transition-colors">Home</Link>
-            <ChevronRight className="h-4 w-4" />
+            <ChevronRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             <span className="text-white">{page.badge}</span>
           </div>
-          <div className="flex items-center gap-4 mt-4">
-            <div className={`h-16 w-16 rounded-2xl ${page.bg} flex items-center justify-center shrink-0`}>
-              <Icon className={`h-8 w-8 ${page.color}`} />
+          <div className="flex items-center gap-3.5 sm:gap-4 mt-2 sm:mt-4">
+            <div className={`h-12 w-12 sm:h-16 sm:w-16 rounded-xl sm:rounded-2xl ${page.bg} flex items-center justify-center shrink-0`}>
+              <Icon className={`h-6 w-6 sm:h-8 sm:w-8 ${page.color}`} />
             </div>
             <div>
-              <h1 className="text-4xl font-bold tracking-tight">{page.title}</h1>
-              <p className="text-emerald-200 text-sm mt-1">{page.updated}</p>
+              <h1 className="text-2xl sm:text-4xl font-bold tracking-tight">{page.title}</h1>
+              <p className="text-emerald-200 text-xs sm:text-sm mt-0.5 sm:mt-1">{page.updated}</p>
             </div>
           </div>
 
           {/* Quick Navigation tabs */}
-          <div className="flex flex-wrap gap-3 mt-10">
+          <div className="flex flex-wrap gap-2 sm:gap-3 mt-6 sm:mt-10">
             {[
               { label: 'Privacy Policy', path: '/privacy' },
               { label: 'Terms of Service', path: '/terms' },
@@ -175,7 +175,7 @@ export default function LegalPage() {
               <Link
                 key={tab.path}
                 to={tab.path}
-                className={`px-5 py-2 rounded-full text-sm font-semibold transition-all border ${
+                className={`px-4 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all border ${
                   location.pathname === tab.path
                     ? 'bg-white text-[#0f6c4f] border-white shadow'
                     : 'bg-white/10 text-white border-white/20 hover:bg-white/20'
@@ -189,23 +189,23 @@ export default function LegalPage() {
       </div>
 
       {/* Content Body */}
-      <div className="max-w-4xl mx-auto px-6 py-16">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10 sm:py-16">
         <motion.div
           key={location.pathname}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          className="space-y-6"
+          className="space-y-4 sm:space-y-6"
         >
           {page.sections.map((section, idx) => (
-            <div key={idx} className="bg-white rounded-2xl border border-slate-100 shadow-sm p-7">
-              <h2 className="text-lg font-bold text-slate-800 mb-3 flex items-center gap-3">
-                <span className={`h-7 w-7 rounded-full ${page.bg} ${page.color} flex items-center justify-center text-xs font-black shrink-0`}>
+            <div key={idx} className="bg-white rounded-2xl border border-slate-100 shadow-sm p-4 sm:p-7">
+              <h2 className="text-base sm:text-lg font-bold text-slate-800 mb-2 sm:mb-3 flex items-center gap-2.5 sm:gap-3">
+                <span className={`h-6 w-6 sm:h-7 sm:w-7 rounded-full ${page.bg} ${page.color} flex items-center justify-center text-[11px] sm:text-xs font-black shrink-0`}>
                   {idx + 1}
                 </span>
                 {section.heading}
               </h2>
-              <p className="text-slate-600 leading-relaxed text-[15px] pl-10">{section.body}</p>
+              <p className="text-slate-600 leading-relaxed text-sm sm:text-[15px] pl-0 sm:pl-10 mt-1 sm:mt-0">{section.body}</p>
             </div>
           ))}
         </motion.div>

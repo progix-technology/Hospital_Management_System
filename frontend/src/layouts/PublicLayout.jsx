@@ -3,7 +3,7 @@ import { Outlet, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Phone, Mail, MapPin, Search, Menu, X,
-  Activity, ArrowUp, MessageCircle, User
+  Activity, ArrowUp, User
 } from 'lucide-react';
 import { Button } from '../components/Button';
 import { cn } from '../utils/cn';
@@ -12,7 +12,29 @@ export default function PublicLayout() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const location = useLocation();
+
+  const searchableItems = [
+    { name: 'Find Doctors & Specialists', category: 'Doctors', path: '/doctors' },
+    { name: 'Book an Appointment', category: 'Appointments', path: '/book-appointment' },
+    { name: 'Cardiology Department', category: 'Departments', path: '/departments' },
+    { name: 'Neurology Department', category: 'Departments', path: '/departments' },
+    { name: 'Orthopedics & Bone Care', category: 'Departments', path: '/departments' },
+    { name: 'Pediatrics & Child Care', category: 'Departments', path: '/departments' },
+    { name: 'Emergency & Ambulance Services', category: 'Services', path: '/services' },
+    { name: 'Health Checkup Packages', category: 'Packages', path: '/packages' },
+    { name: 'About Hospital & Milestones', category: 'About', path: '/about' },
+    { name: 'Contact & 24/7 Helpline', category: 'Contact', path: '/contact' },
+    { name: 'Patient Portal Login', category: 'Account', path: '/login' },
+  ];
+
+  const searchResults = searchQuery.trim() === '' 
+    ? [] 
+    : searchableItems.filter(item => 
+        item.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+        item.category.toLowerCase().includes(searchQuery.toLowerCase())
+      );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,56 +67,60 @@ export default function PublicLayout() {
   return (
     <div className="min-h-screen bg-[var(--color-background)] font-sans text-[var(--color-foreground)] flex flex-col">
 
-      {/* Topbar matching design */}
-      <div className="bg-[var(--color-footer)] text-[var(--color-muted)] text-[11px] font-medium py-2.5 px-4 hidden lg:block">
+      {/* Topbar matching design (Compact slim height) */}
+      <div className="bg-[var(--color-footer)] text-[var(--color-muted)] text-[10.5px] font-medium py-1.5 px-4 hidden lg:block border-b border-white/5">
         <div className="container mx-auto max-w-[1400px] flex justify-between items-center">
-          <div className="flex items-center gap-6">
-            <span className="flex items-center gap-2 hover:text-[var(--color-accent)] transition-colors cursor-pointer text-white">
-              <Phone className="h-3.5 w-3.5" /> 24/7 Emergency Care
+          <div className="flex items-center gap-5">
+            <span className="flex items-center gap-1.5 hover:text-[var(--color-accent)] transition-colors cursor-pointer text-white">
+              <Phone className="h-3 w-3" /> 24/7 Emergency Care
             </span>
-            <span className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer text-[var(--color-accent)]">
-              <Phone className="h-3.5 w-3.5" /> +91 89532 08952
+            <span className="flex items-center gap-1.5 hover:text-white transition-colors cursor-pointer text-[var(--color-accent)]">
+              <Phone className="h-3 w-3" /> +91 89532 08952
             </span>
-            <span className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer text-[var(--color-accent)]">
-              <Mail className="h-3.5 w-3.5" /> info@progixtechnology.com
+            <span className="flex items-center gap-1.5 hover:text-white transition-colors cursor-pointer text-[var(--color-accent)]">
+              <Mail className="h-3 w-3" /> info@progixtechnology.com
             </span>
           </div>
-          <div className="flex items-center gap-6">
-            <span className="flex items-center gap-2 text-white">
-              <MapPin className="h-3.5 w-3.5 text-white" /> Lucknow , Uttar Pradesh
+          <div className="flex items-center gap-5">
+            <span className="flex items-center gap-1.5 text-white">
+              <MapPin className="h-3 w-3 text-white" /> Lucknow, Uttar Pradesh
             </span>
-            <div className="h-4 w-px bg-slate-700"></div>
-            <Link to="/login" className="flex items-center gap-2 hover:text-[var(--color-accent)] text-white transition-colors">
-              <User className="h-3.5 w-3.5" /> Login
+            <div className="h-3.5 w-px bg-slate-700"></div>
+            <Link to="/login" className="flex items-center gap-1.5 hover:text-[var(--color-accent)] text-white transition-colors">
+              <User className="h-3 w-3" /> Login
             </Link>
           </div>
         </div>
       </div>
 
-      {/* Main Sticky Header */}
+      {/* Main Sticky Header (Always top layer z-[100]) */}
       <header className={cn(
-        "sticky top-0 z-50 w-full transition-all duration-300 border-b border-[var(--color-border)]",
-        isScrolled ? "bg-[var(--color-navbar)]/95 backdrop-blur-md shadow-sm py-3" : "bg-[var(--color-navbar)] py-4"
+        "sticky top-0 z-[100] w-full transition-all duration-300 border-b border-[var(--color-border)]",
+        isScrolled ? "bg-[var(--color-navbar)]/95 backdrop-blur-md shadow-xs py-1.5" : "bg-[var(--color-navbar)] py-2"
       )}>
-        <div className="container mx-auto max-w-[1600px] px-6 md:px-12 flex items-center justify-between">
+        <div className="container mx-auto max-w-[1600px] px-4 md:px-8 flex items-center justify-between">
 
-          {/* Logo matching design */}
-          <Link to="/" className="flex items-center gap-4 z-50">
-            <img src="/applogo.png" alt="Logo" className="h-14 w-14 object-contain" />
-            <div className="flex flex-col">
-              <span className="font-extrabold text-2xl tracking-tight text-[var(--color-heading)] font-serif leading-none mb-1">Medisphere</span>
-              <span className="text-[10px] uppercase tracking-wider text-[var(--color-muted)] font-bold leading-none">HOSPITAL & RESEARCH CENTER</span>
+          {/* Logo matching design (Slimmer proportions) */}
+          <Link to="/" className="flex items-center gap-2 z-50 group">
+            <img src="/applogo.png" alt="Logo" className="h-9 w-9 md:h-10 md:w-10 object-contain shrink-0 transition-transform duration-300 group-hover:scale-105" />
+            <div className="flex flex-col justify-center">
+              <span className="font-black text-lg md:text-[21px] tracking-tight bg-gradient-to-r from-[#0284c7] via-[#0d9488] to-[#16a34a] bg-clip-text text-transparent leading-none mb-0.5">
+                Medisphere
+              </span>
+              <span className="text-[7.5px] uppercase tracking-[0.14em] text-slate-500 font-bold leading-none">
+                HOSPITAL & RESEARCH CENTER
+              </span>
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center justify-center flex-1 ml-10">
+          {/* Desktop Navigation (Compact links) */}
+          <nav className="hidden lg:flex items-center justify-center flex-1 ml-6">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 to={link.path}
                 className={cn(
-                  "px-4 py-2 rounded-full text-[13px] font-bold transition-all duration-300 mx-1",
+                  "px-3 py-1 rounded-full text-xs font-bold transition-all duration-300 mx-0.5",
                   location.pathname === link.path
                     ? "text-[var(--color-primary)] bg-[var(--color-background-secondary)]"
                     : "text-[var(--color-foreground)] hover:text-[var(--color-primary)] hover:bg-[var(--color-background-secondary)]"
@@ -105,26 +131,40 @@ export default function PublicLayout() {
             ))}
           </nav>
 
-          {/* Actions */}
-          <div className="hidden lg:flex items-center gap-4">
-            <Button onClick={() => setIsSearchOpen(true)} variant="ghost" size="sm" className="h-10 w-10 p-0 rounded-full border border-[var(--color-border)] text-[var(--color-foreground)] hover:bg-[var(--color-background-secondary)]">
-              <Search className="h-4 w-4" />
+          {/* Actions (Compact buttons) */}
+          <div className="hidden lg:flex items-center gap-3">
+            <Button onClick={() => setIsSearchOpen(true)} variant="ghost" size="sm" className="h-8.5 w-8.5 p-0 rounded-full border border-[var(--color-border)] text-[var(--color-foreground)] hover:bg-[var(--color-background-secondary)]">
+              <Search className="h-3.5 w-3.5" />
             </Button>
             <Link to="/book-appointment">
-              <Button variant="primary" className="rounded-full px-6 h-10 text-sm font-semibold">
+              <Button variant="primary" className="rounded-full px-4.5 h-8.5 text-xs font-semibold">
                 Book Appointment
               </Button>
             </Link>
           </div>
 
-          {/* Mobile Menu Toggle */}
-          <Button
-            variant="ghost"
-            className="lg:hidden h-10 w-10 p-0 z-[100000] rounded-full bg-[var(--color-background-secondary)] text-[var(--color-foreground)]"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </Button>
+          {/* Mobile Right Controls: Search button (pill) + Mobile Menu Toggle */}
+          <div className="flex items-center gap-2 lg:hidden">
+            <button
+              type="button"
+              onClick={() => setIsSearchOpen(true)}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-slate-200/90 bg-white hover:bg-slate-50 text-slate-700 text-xs font-medium shadow-xs transition-all active:scale-95 cursor-pointer"
+              aria-label="Search"
+            >
+              <Search className="h-3.5 w-3.5 text-slate-500" />
+              <span>Search</span>
+            </button>
+
+            {/* Mobile Menu Toggle */}
+            <Button
+              variant="ghost"
+              className="h-8.5 w-8.5 p-0 z-[100000] rounded-full bg-[var(--color-background-secondary)] text-[var(--color-foreground)] cursor-pointer"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+            >
+              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </Button>
+          </div>
 
         </div>
       </header>
@@ -133,32 +173,74 @@ export default function PublicLayout() {
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -15 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-[99999] bg-[var(--color-background)] pt-24 px-4 overflow-y-auto lg:hidden"
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-[99999] bg-[var(--color-background)] pt-20 pb-10 px-4 sm:px-6 overflow-y-auto lg:hidden flex flex-col justify-between"
           >
             <div className="flex flex-col gap-2">
+              {/* Emergency Fast Dial Bar for Mobile */}
+              <a
+                href="tel:+918953208952"
+                className="flex items-center justify-between p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-700 font-bold text-xs mb-3 shadow-xs active:scale-[0.99] transition-transform"
+              >
+                <div className="flex items-center gap-2.5">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-red-600"></span>
+                  </span>
+                  <span>24/7 Emergency Line: +91 89532 08952</span>
+                </div>
+                <span className="px-2.5 py-1 rounded-full bg-red-600 text-white text-[10px]">Call</span>
+              </a>
+
+              {/* Navigation Links */}
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   to={link.path}
+                  onClick={() => setMobileMenuOpen(false)}
                   className={cn(
-                    "p-4 text-lg font-bold rounded-xl border border-[var(--color-border)]",
-                    location.pathname === link.path ? "bg-[var(--color-background-secondary)] text-[var(--color-primary)]" : "text-[var(--color-heading)]"
+                    "p-3.5 text-base font-bold rounded-xl border border-[var(--color-border)] transition-colors flex items-center justify-between",
+                    location.pathname === link.path
+                      ? "bg-[var(--color-background-secondary)] text-[var(--color-primary)] border-[var(--color-primary)]/30"
+                      : "text-[var(--color-heading)] bg-white/70 hover:bg-white"
                   )}
                 >
-                  {link.name}
+                  <span>{link.name}</span>
+                  <span className="text-slate-400 text-sm">&rarr;</span>
                 </Link>
               ))}
-              <div className="mt-6 space-y-3">
-                <Link to="/login" className="block w-full">
-                  <Button variant="outline" className="w-full h-12 rounded-xl text-base font-semibold border-[var(--color-border)] bg-white">Patient Login</Button>
+
+              {/* Actions */}
+              <div className="mt-5 space-y-2.5">
+                <Link to="/book-appointment" onClick={() => setMobileMenuOpen(false)} className="block w-full">
+                  <Button variant="primary" className="w-full h-12 rounded-xl text-sm font-bold shadow-sm">
+                    Book Appointment
+                  </Button>
                 </Link>
-                <Link to="/book-appointment" className="block w-full">
-                  <Button variant="primary" className="w-full h-12 rounded-xl text-base font-semibold">Book Appointment</Button>
-                </Link>
+                <div className="grid grid-cols-2 gap-2">
+                  <Link to="/login" onClick={() => setMobileMenuOpen(false)} className="block w-full">
+                    <Button variant="outline" className="w-full h-11 rounded-xl text-xs font-semibold border-[var(--color-border)] bg-white">
+                      Patient Login
+                    </Button>
+                  </Link>
+                  <button
+                    onClick={() => { setMobileMenuOpen(false); setIsSearchOpen(true); }}
+                    className="w-full h-11 rounded-xl text-xs font-semibold border border-[var(--color-border)] bg-white text-slate-700 flex items-center justify-center gap-1.5 hover:bg-slate-50 transition-colors"
+                  >
+                    <Search className="h-3.5 w-3.5 text-slate-500" />
+                    <span>Search</span>
+                  </button>
+                </div>
               </div>
+            </div>
+
+            {/* Mobile Footer note */}
+            <div className="mt-8 pt-4 border-t border-slate-200 text-center text-xs text-slate-500">
+              <p className="font-semibold text-slate-700">Medisphere Hospital & Research Center</p>
+              <p className="text-[11px] text-slate-400 mt-0.5">Vibhuti Khand, Gomtinagar, Lucknow</p>
             </div>
           </motion.div>
         )}
@@ -176,11 +258,11 @@ export default function PublicLayout() {
 
             {/* Brand - Span 1 column */}
             <div className="space-y-6 lg:col-span-1">
-              <div className="flex items-center gap-3">
-                <img src="/applogo.png" alt="Logo" className="h-8 w-8 object-contain" />
+              <div className="flex items-center gap-2">
+                <img src="/applogo.png" alt="Logo" className="h-9 w-9 object-contain shrink-0" />
                 <div className="flex flex-col">
-                  <span className="font-bold text-lg text-white font-serif leading-none mb-0.5">Medisphere</span>
-                  <span className="text-[7px] uppercase tracking-wider text-[var(--color-accent)] font-semibold leading-none">HOSPITAL & RESEARCH CENTER</span>
+                  <span className="font-black text-lg bg-gradient-to-r from-sky-400 via-teal-300 to-emerald-400 bg-clip-text text-transparent leading-none mb-0.5">Medisphere</span>
+                  <span className="text-[7.5px] uppercase tracking-[0.14em] text-[var(--color-accent)] font-semibold leading-none">HOSPITAL & RESEARCH CENTER</span>
                 </div>
               </div>
               <p className="text-[13px] leading-relaxed text-white/70">
@@ -307,16 +389,14 @@ export default function PublicLayout() {
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.5 }}
-            className="fixed bottom-6 right-6 z-50 flex flex-col gap-3"
+            className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col gap-3"
           >
-            <button className="h-14 w-14 rounded-full bg-[var(--color-primary)] text-white shadow-lg flex items-center justify-center hover:scale-110 transition-transform">
-              <MessageCircle className="h-6 w-6" />
-            </button>
+
             <button
               onClick={scrollToTop}
-              className="h-12 w-12 rounded-full bg-[var(--color-card)] text-[var(--color-foreground)] shadow-sm flex items-center justify-center hover:bg-[var(--color-background-secondary)] hover:scale-110 transition-transform border border-[var(--color-border)]"
+              className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-[var(--color-card)] text-[var(--color-foreground)] shadow-md flex items-center justify-center hover:bg-[var(--color-background-secondary)] hover:scale-105 transition-transform border border-[var(--color-border)]"
             >
-              <ArrowUp className="h-5 w-5" />
+              <ArrowUp className="h-4 w-4 sm:h-5 sm:w-5" />
             </button>
           </motion.div>
         )}
@@ -329,37 +409,85 @@ export default function PublicLayout() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-sm flex items-start justify-center pt-32 px-4"
+            className="fixed inset-0 z-[100002] bg-slate-900/65 backdrop-blur-sm flex items-start justify-center pt-14 sm:pt-24 md:pt-32 px-3 sm:px-4"
+            onClick={() => { setIsSearchOpen(false); setSearchQuery(''); }}
           >
             <motion.div
               initial={{ opacity: 0, y: -20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.95 }}
-              className="bg-white w-full max-w-3xl rounded-3xl shadow-2xl overflow-hidden border border-slate-100"
+              onClick={(e) => e.stopPropagation()}
+              className="bg-white w-full max-w-2xl rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden border border-slate-200"
             >
-              <div className="flex items-center border-b border-slate-100 px-6 py-4">
-                <Search className="h-6 w-6 text-slate-400 mr-4" />
+              <div className="flex items-center border-b border-slate-100 px-3.5 sm:px-6 py-3 sm:py-4">
+                <Search className="h-5 w-5 text-slate-400 mr-2.5 sm:mr-4 shrink-0" />
                 <input
                   type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search doctors, departments, services..."
-                  className="flex-1 h-14 bg-transparent outline-none text-xl font-medium text-slate-800 placeholder:text-slate-400"
+                  className="flex-1 h-10 sm:h-12 bg-transparent outline-none text-sm sm:text-lg font-medium text-slate-800 placeholder:text-slate-400"
                   autoFocus
                 />
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery('')}
+                    className="h-7 w-7 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center mr-2 text-xs font-bold hover:bg-slate-200"
+                  >
+                    ✕
+                  </button>
+                )}
                 <button
-                  onClick={() => setIsSearchOpen(false)}
-                  className="h-10 w-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-500 hover:bg-slate-100 transition-colors"
+                  onClick={() => { setIsSearchOpen(false); setSearchQuery(''); }}
+                  className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 transition-colors"
                 >
-                  <X className="h-5 w-5" />
+                  <X className="h-4 w-4 sm:h-5 sm:w-5" />
                 </button>
               </div>
-              <div className="p-6 bg-slate-50">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Quick Links</h4>
-                <div className="flex flex-wrap gap-2">
-                  <Link to="/doctors" onClick={() => setIsSearchOpen(false)} className="px-4 py-2 bg-white border border-slate-200 rounded-full text-sm font-semibold text-slate-600 hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors">Find a Doctor</Link>
-                  <Link to="/book-appointment" onClick={() => setIsSearchOpen(false)} className="px-4 py-2 bg-white border border-slate-200 rounded-full text-sm font-semibold text-slate-600 hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors">Book Appointment</Link>
-                  <Link to="/departments" onClick={() => setIsSearchOpen(false)} className="px-4 py-2 bg-white border border-slate-200 rounded-full text-sm font-semibold text-slate-600 hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors">Cardiology</Link>
-                  <Link to="/packages" onClick={() => setIsSearchOpen(false)} className="px-4 py-2 bg-white border border-slate-200 rounded-full text-sm font-semibold text-slate-600 hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors">Health Packages</Link>
-                </div>
+
+              {/* Live Search Results or Quick Links */}
+              <div className="p-4 sm:p-6 bg-slate-50 max-h-[60vh] overflow-y-auto">
+                {searchQuery.trim() !== '' ? (
+                  <div>
+                    <h4 className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
+                      Search Results ({searchResults.length})
+                    </h4>
+                    {searchResults.length > 0 ? (
+                      <div className="space-y-1.5">
+                        {searchResults.map((item) => (
+                          <Link
+                            key={item.name}
+                            to={item.path}
+                            onClick={() => { setIsSearchOpen(false); setSearchQuery(''); }}
+                            className="flex items-center justify-between p-2.5 sm:p-3 rounded-xl bg-white hover:bg-slate-100/80 border border-slate-200 transition-colors group"
+                          >
+                            <span className="text-xs sm:text-sm font-bold text-slate-700 group-hover:text-[var(--color-primary)]">
+                              {item.name}
+                            </span>
+                            <span className="text-[10px] sm:text-xs font-medium px-2 py-0.5 rounded-full bg-slate-100 text-slate-500">
+                              {item.category}
+                            </span>
+                          </Link>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-xs sm:text-sm text-slate-500 py-3 text-center">
+                        No matches found for "{searchQuery}".
+                      </p>
+                    )}
+                  </div>
+                ) : (
+                  <div>
+                    <h4 className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Quick Links</h4>
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                      <Link to="/doctors" onClick={() => setIsSearchOpen(false)} className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white border border-slate-200 rounded-full text-xs sm:text-sm font-semibold text-slate-600 hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors">Find a Doctor</Link>
+                      <Link to="/book-appointment" onClick={() => setIsSearchOpen(false)} className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white border border-slate-200 rounded-full text-xs sm:text-sm font-semibold text-slate-600 hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors">Book Appointment</Link>
+                      <Link to="/departments" onClick={() => setIsSearchOpen(false)} className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white border border-slate-200 rounded-full text-xs sm:text-sm font-semibold text-slate-600 hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors">Cardiology</Link>
+                      <Link to="/packages" onClick={() => setIsSearchOpen(false)} className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white border border-slate-200 rounded-full text-xs sm:text-sm font-semibold text-slate-600 hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors">Health Packages</Link>
+                      <Link to="/contact" onClick={() => setIsSearchOpen(false)} className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white border border-slate-200 rounded-full text-xs sm:text-sm font-semibold text-slate-600 hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors">Contact Us</Link>
+                    </div>
+                  </div>
+                )}
               </div>
             </motion.div>
           </motion.div>

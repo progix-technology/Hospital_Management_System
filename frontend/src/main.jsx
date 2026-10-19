@@ -14,6 +14,15 @@ axios.interceptors.request.use(
     if (config.url && config.url.startsWith('http://localhost:5000')) {
       config.url = config.url.replace('http://localhost:5000', API_URL);
     }
+    // Attach JWT Authorization Bearer token if user is logged in
+    try {
+      const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
+      if (userInfo && userInfo.token) {
+        config.headers.Authorization = `Bearer ${userInfo.token}`;
+      }
+    } catch (e) {
+      // Ignore JSON parse errors on invalid storage
+    }
     return config;
   },
   (error) => {

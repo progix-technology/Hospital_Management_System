@@ -79,3 +79,18 @@ export const registerUser = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// @desc    Get currently logged-in user profile from JWT
+// @route   GET /api/auth/me
+// @access  Private (JWT Protected)
+export const getMe = async (req, res) => {
+  try {
+    if (req.user) {
+      res.json(req.user);
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

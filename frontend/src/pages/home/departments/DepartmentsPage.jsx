@@ -20,49 +20,49 @@ export default function DepartmentsPage() {
   return (
     <div className="flex flex-col min-h-screen bg-white">
       
-      {/* Page Header */}
-      <section className="relative w-full h-[400px] lg:h-[500px] flex items-center justify-center text-white overflow-hidden">
+      {/* Page Header (Full height on mobile) */}
+      <section className="relative w-full min-h-[100dvh] sm:min-h-[400px] lg:h-[480px] py-14 sm:py-20 flex items-center justify-center text-white overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://res.cloudinary.com/dbp97xecb/image/upload/f_auto,q_auto,w_1600/v1785927339/departments_k7dwgb.png')] bg-cover bg-center"></div>
         {/* Only a very subtle gradient at the bottom for text readability, no dark overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent"></div>
         <div className="container mx-auto max-w-7xl px-4 relative z-10">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-            <h1 className="text-4xl md:text-6xl font-bold mb-4 text-white drop-shadow-lg">Our Departments</h1>
-            <p className="text-lg text-white max-w-2xl mb-8 drop-shadow-md font-medium">We offer a wide range of specialized medical departments equipped with state-of-the-art technology and staffed by world-renowned experts.</p>
-            <div className="flex items-center text-sm font-bold text-white drop-shadow-md gap-2">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-3 sm:mb-4 text-white drop-shadow-lg">Our Departments</h1>
+            <p className="text-sm sm:text-base md:text-lg text-white max-w-2xl mb-6 sm:mb-8 drop-shadow-md font-medium">We offer a wide range of specialized medical departments equipped with state-of-the-art technology and staffed by world-renowned experts.</p>
+            <div className="flex items-center text-xs sm:text-sm font-bold text-white drop-shadow-md gap-2">
               <Link to="/" className="hover:text-slate-200 transition-colors">Home</Link>
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               <span>Departments</span>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Departments Grid */}
-      <section className="py-24 bg-slate-50">
-        <div className="container mx-auto max-w-7xl px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {/* Departments Grid (4 in 1 line) */}
+      <section className="py-6 sm:py-16 bg-slate-50">
+        <div className="container mx-auto max-w-7xl px-2 sm:px-4">
+          <div className="grid grid-cols-4 gap-1.5 sm:gap-4 lg:gap-6">
             {departments.map((dept, index) => (
               <motion.div 
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
+                transition={{ duration: 0.3, delay: index * 0.04 }}
               >
-                <Card className="border-none shadow-md hover:shadow-xl transition-all duration-300 group cursor-pointer rounded-3xl overflow-hidden h-full">
-                  <CardContent className="p-8 h-full flex flex-col">
-                    <div className={`h-16 w-16 rounded-2xl ${dept.bg} flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110`}>
-                      <dept.icon className={`h-8 w-8 ${dept.color}`} />
+                <Card className="border border-slate-100 shadow-xs hover:shadow-lg transition-all duration-300 group cursor-pointer rounded-xl sm:rounded-2xl lg:rounded-3xl overflow-hidden h-full flex flex-col justify-between bg-white">
+                  <CardContent className="p-2 sm:p-5 lg:p-6 h-full flex flex-col items-center sm:items-start text-center sm:text-left">
+                    <div className={`h-8 w-8 sm:h-12 sm:w-12 lg:h-14 lg:w-14 rounded-xl sm:rounded-2xl ${dept.bg} flex items-center justify-center mb-1.5 sm:mb-4 transition-transform duration-300 group-hover:scale-110 shrink-0`}>
+                      <dept.icon className={`h-4 w-4 sm:h-6 sm:w-6 lg:h-7 lg:w-7 ${dept.color}`} />
                     </div>
-                    <h4 className="text-2xl font-bold text-slate-900 mb-4">{dept.name}</h4>
-                    <p className="text-slate-600 mb-8 leading-relaxed flex-grow">{dept.desc}</p>
-                    <div className="flex items-center gap-4 mt-auto">
-                      <Link to={`/departments/${dept.id}`} className="flex-1">
-                        <Button variant="outline" className="w-full rounded-xl border-gray-200 text-slate-700 hover:bg-slate-50">Explore</Button>
+                    <h4 className="text-[10px] sm:text-base lg:text-lg font-bold text-slate-900 mb-0.5 sm:mb-2 truncate w-full">{dept.name}</h4>
+                    <p className="text-[8px] sm:text-xs text-slate-600 mb-2 sm:mb-5 leading-relaxed hidden sm:line-clamp-2 flex-grow">{dept.desc}</p>
+                    <div className="flex items-center gap-1 sm:gap-2.5 w-full mt-auto pt-1 sm:pt-0">
+                      <Link to={`/departments/${dept.id}`} className="flex-1 w-full">
+                        <Button variant="outline" className="w-full h-6 sm:h-9 text-[8px] sm:text-xs rounded-md sm:rounded-xl border-gray-200 text-slate-700 hover:bg-slate-50 px-1 font-semibold">Explore</Button>
                       </Link>
-                      <Link to={`/book-appointment?dept=${dept.name.toLowerCase()}`} className="flex-1">
-                        <Button className="w-full rounded-xl bg-[var(--color-primary)] text-white shadow-sm">Book</Button>
+                      <Link to={`/book-appointment?dept=${dept.name.toLowerCase()}`} className="flex-1 w-full hidden sm:block">
+                        <Button className="w-full h-9 text-xs rounded-xl bg-[var(--color-primary)] text-white shadow-xs font-semibold">Book</Button>
                       </Link>
                     </div>
                   </CardContent>

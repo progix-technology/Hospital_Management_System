@@ -250,9 +250,9 @@ export default function ServiceDetailsPage() {
     <div className="flex flex-col min-h-screen bg-[var(--color-background)]">
       
       {/* ======================================================== */}
-      {/* HERO BANNER SECTION                                      */}
+      {/* HERO BANNER SECTION (Full height on mobile)             */}
       {/* ======================================================== */}
-      <section className="relative w-full min-h-[460px] lg:min-h-[520px] flex items-center justify-center text-white overflow-hidden bg-slate-900 pt-28 pb-20">
+      <section className="relative w-full min-h-[100dvh] lg:min-h-[520px] flex items-center justify-center text-white overflow-hidden bg-slate-900 pt-28 pb-20">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img 
@@ -283,22 +283,22 @@ export default function ServiceDetailsPage() {
             </div>
 
             {/* Title */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-extrabold mb-4 text-white drop-shadow-lg tracking-tight">
+            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-extrabold mb-4 text-white drop-shadow-lg tracking-tight">
               {service.title}
             </h1>
             
-            <p className="text-base md:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed font-medium drop-shadow-md">
+            <p className="text-sm sm:text-base md:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed font-medium drop-shadow-md">
               {service.tagline}
             </p>
 
-            <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <Link to="/book-appointment">
-                <Button className="bg-[#0f6c4f] hover:bg-emerald-800 text-white font-bold h-12 px-7 rounded-xl shadow-lg border-0 cursor-pointer">
+            <div className="mt-8 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 max-w-md sm:max-w-none mx-auto">
+              <Link to="/book-appointment" className="w-full sm:w-auto">
+                <Button className="w-full sm:w-auto bg-[#0f6c4f] hover:bg-emerald-800 text-white font-bold h-12 px-7 rounded-xl shadow-lg border-0 cursor-pointer">
                   <Calendar className="mr-2 h-4 w-4" /> Book Service / Test
                 </Button>
               </Link>
-              <a href="tel:+918953208952">
-                <Button variant="outline" className="bg-white/10 hover:bg-white/20 text-white border-white/30 backdrop-blur-xs font-bold h-12 px-7 rounded-xl cursor-pointer">
+              <a href="tel:+918953208952" className="w-full sm:w-auto">
+                <Button variant="outline" className="w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white border-white/30 backdrop-blur-xs font-bold h-12 px-7 rounded-xl cursor-pointer">
                   <Phone className="mr-2 h-4 w-4 text-[var(--color-accent)]" /> Call 24/7 Helpline
                 </Button>
               </a>
@@ -311,12 +311,12 @@ export default function ServiceDetailsPage() {
       {/* ======================================================== */}
       {/* KEY STATS BAR                                            */}
       {/* ======================================================== */}
-      <section className="relative z-20 -mt-10 max-w-6xl mx-auto px-4 w-full">
-        <div className="bg-white rounded-2xl shadow-xl border border-slate-100 p-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+      <section className="relative z-20 -mt-6 sm:-mt-10 max-w-6xl mx-auto px-4 w-full">
+        <div className="bg-white rounded-2xl shadow-xl border border-slate-100 p-4 sm:p-6 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 text-center">
           {service.stats.map((stat, idx) => (
-            <div key={idx} className="border-r last:border-r-0 border-slate-100 pr-4 last:pr-0">
-              <div className="text-2xl lg:text-3xl font-extrabold text-[#0f6c4f]">{stat.value}</div>
-              <div className="text-xs font-semibold text-slate-500 mt-1 uppercase tracking-wider">{stat.label}</div>
+            <div key={idx} className="border-r last:border-r-0 [&:nth-child(2)]:border-r-0 md:[&:nth-child(2)]:border-r border-slate-100 pr-2 sm:pr-4 last:pr-0">
+              <div className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#0f6c4f]">{stat.value}</div>
+              <div className="text-[10px] sm:text-xs font-semibold text-slate-500 mt-1 uppercase tracking-wider">{stat.label}</div>
             </div>
           ))}
         </div>
