@@ -20,28 +20,30 @@ export default function DepartmentsPage() {
   return (
     <div className="flex flex-col min-h-screen bg-white">
       
-      {/* Page Header (Full height on mobile) */}
-      <section className="relative w-full min-h-[100dvh] sm:min-h-[400px] lg:h-[480px] py-14 sm:py-20 flex items-center justify-center text-white overflow-hidden">
+      {/* Page Header */}
+      <section className="relative w-full pt-24 pb-12 sm:pt-28 sm:pb-20 lg:py-24 min-h-[320px] sm:min-h-[400px] flex items-center justify-center text-white overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://res.cloudinary.com/dbp97xecb/image/upload/f_auto,q_auto,w_1600/v1785927339/departments_k7dwgb.png')] bg-cover bg-center"></div>
-        {/* Only a very subtle gradient at the bottom for text readability, no dark overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent"></div>
-        <div className="container mx-auto max-w-7xl px-4 relative z-10">
+        {/* Subtle gradient for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/40 to-slate-900/30"></div>
+        <div className="container mx-auto max-w-7xl px-4 relative z-10 text-center sm:text-left">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-3 sm:mb-4 text-white drop-shadow-lg">Our Departments</h1>
-            <p className="text-sm sm:text-base md:text-lg text-white max-w-2xl mb-6 sm:mb-8 drop-shadow-md font-medium">We offer a wide range of specialized medical departments equipped with state-of-the-art technology and staffed by world-renowned experts.</p>
-            <div className="flex items-center text-xs sm:text-sm font-bold text-white drop-shadow-md gap-2">
-              <Link to="/" className="hover:text-slate-200 transition-colors">Home</Link>
-              <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-              <span>Departments</span>
+            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-2.5 sm:mb-4 text-white drop-shadow-lg">Our Medical Departments</h1>
+            <p className="text-xs sm:text-base md:text-lg text-white/90 max-w-2xl mb-4 sm:mb-6 drop-shadow-md font-normal leading-relaxed mx-auto sm:mx-0">
+              We offer comprehensive specialized clinical departments equipped with state-of-the-art diagnostic and surgical infrastructure.
+            </p>
+            <div className="flex items-center justify-center sm:justify-start text-xs sm:text-sm font-semibold text-emerald-300 drop-shadow-md gap-2">
+              <Link to="/" className="hover:text-white transition-colors">Home</Link>
+              <ArrowRight className="h-3.5 w-3.5" />
+              <span className="text-white">Departments Directory</span>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Departments Grid (4 in 1 line) */}
-      <section className="py-6 sm:py-16 bg-slate-50">
-        <div className="container mx-auto max-w-7xl px-2 sm:px-4">
-          <div className="grid grid-cols-4 gap-1.5 sm:gap-4 lg:gap-6">
+      {/* Departments Grid (2 per line on mobile, 3 on tablet, 4 on desktop) */}
+      <section className="py-6 sm:py-14 bg-slate-50">
+        <div className="container mx-auto max-w-7xl px-3 sm:px-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-4 lg:gap-6">
             {departments.map((dept, index) => (
               <motion.div 
                 key={index}
@@ -50,19 +52,23 @@ export default function DepartmentsPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: index * 0.04 }}
               >
-                <Card className="border border-slate-100 shadow-xs hover:shadow-lg transition-all duration-300 group cursor-pointer rounded-xl sm:rounded-2xl lg:rounded-3xl overflow-hidden h-full flex flex-col justify-between bg-white">
-                  <CardContent className="p-2 sm:p-5 lg:p-6 h-full flex flex-col items-center sm:items-start text-center sm:text-left">
-                    <div className={`h-8 w-8 sm:h-12 sm:w-12 lg:h-14 lg:w-14 rounded-xl sm:rounded-2xl ${dept.bg} flex items-center justify-center mb-1.5 sm:mb-4 transition-transform duration-300 group-hover:scale-110 shrink-0`}>
-                      <dept.icon className={`h-4 w-4 sm:h-6 sm:w-6 lg:h-7 lg:w-7 ${dept.color}`} />
+                <Card className="border border-slate-200/80 shadow-xs hover:shadow-md transition-all duration-300 group cursor-pointer rounded-xl sm:rounded-2xl lg:rounded-3xl overflow-hidden h-full flex flex-col justify-between bg-white">
+                  <CardContent className="p-3 sm:p-5 lg:p-6 h-full flex flex-col items-center sm:items-start text-center sm:text-left">
+                    <div className={`h-10 w-10 sm:h-12 sm:w-12 lg:h-14 lg:w-14 rounded-xl sm:rounded-2xl ${dept.bg} flex items-center justify-center mb-2 sm:mb-4 transition-transform duration-300 group-hover:scale-105 shrink-0`}>
+                      <dept.icon className={`h-5 w-5 sm:h-6 sm:w-6 lg:h-7 lg:w-7 ${dept.color}`} />
                     </div>
-                    <h4 className="text-[10px] sm:text-base lg:text-lg font-bold text-slate-900 mb-0.5 sm:mb-2 truncate w-full">{dept.name}</h4>
-                    <p className="text-[8px] sm:text-xs text-slate-600 mb-2 sm:mb-5 leading-relaxed hidden sm:line-clamp-2 flex-grow">{dept.desc}</p>
-                    <div className="flex items-center gap-1 sm:gap-2.5 w-full mt-auto pt-1 sm:pt-0">
+                    <h4 className="text-xs sm:text-base lg:text-lg font-bold text-slate-900 mb-1 sm:mb-2 truncate w-full">{dept.name}</h4>
+                    <p className="text-[10px] sm:text-xs text-slate-500 mb-3 sm:mb-5 leading-relaxed line-clamp-2 flex-grow">{dept.desc}</p>
+                    <div className="flex items-center gap-1.5 sm:gap-2.5 w-full mt-auto pt-1">
                       <Link to={`/departments/${dept.id}`} className="flex-1 w-full">
-                        <Button variant="outline" className="w-full h-6 sm:h-9 text-[8px] sm:text-xs rounded-md sm:rounded-xl border-gray-200 text-slate-700 hover:bg-slate-50 px-1 font-semibold">Explore</Button>
+                        <Button variant="outline" className="w-full h-7 sm:h-9 text-[10px] sm:text-xs rounded-lg sm:rounded-xl border-emerald-600/30 text-emerald-800 hover:bg-emerald-50 px-2 font-semibold">
+                          Explore
+                        </Button>
                       </Link>
                       <Link to={`/book-appointment?dept=${dept.name.toLowerCase()}`} className="flex-1 w-full hidden sm:block">
-                        <Button className="w-full h-9 text-xs rounded-xl bg-[var(--color-primary)] text-white shadow-xs font-semibold">Book</Button>
+                        <Button className="w-full h-9 text-xs rounded-xl bg-[var(--color-primary)] text-white shadow-xs font-semibold hover:bg-[var(--color-primary)]/90">
+                          Book
+                        </Button>
                       </Link>
                     </div>
                   </CardContent>
