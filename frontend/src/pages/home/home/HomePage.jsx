@@ -159,132 +159,135 @@ export default function HomePage() {
           ======================================================== */}
       <AnimatePresence>
         {showEmergencyModal && (
-          <div className="fixed inset-0 z-[999999] flex items-center justify-center p-4 sm:p-6 bg-slate-950/40 backdrop-blur-[2px]">
+          <div className="fixed inset-0 z-[999999] flex items-center justify-center p-2.5 sm:p-4 md:p-6 bg-slate-950/60 backdrop-blur-xs">
             {/* Click outside backdrop to close */}
             <div
               className="absolute inset-0"
               onClick={handleCloseEmergencyModal}
             ></div>
 
-            {/* Modal Container: Matches screenshot 1-to-1 and mobile responsive */}
+            {/* Modal Container: Perfectly fitted on mobile and desktop */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.94, y: 15 }}
+              initial={{ opacity: 0, scale: 0.95, y: 12 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.94, y: 15 }}
-              transition={{ type: "spring", duration: 0.4 }}
-              className="relative w-full max-w-4xl bg-white rounded-2xl shadow-[0_25px_60px_rgba(0,0,0,0.35)] overflow-hidden z-10 max-h-[92vh] overflow-y-auto"
+              exit={{ opacity: 0, scale: 0.95, y: 12 }}
+              transition={{ type: "spring", duration: 0.35 }}
+              className="relative w-full max-w-4xl bg-white rounded-2xl sm:rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.4)] overflow-hidden z-10 max-h-[92dvh] overflow-y-auto"
             >
-              {/* Close Button Top Right (Rounded circular icon button) */}
+              {/* Close Button Top Right */}
               <button
                 onClick={handleCloseEmergencyModal}
-                className="absolute top-3 right-3 sm:top-4 sm:right-4 z-30 h-8 w-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 flex items-center justify-center transition-colors shadow-xs"
+                className="absolute top-2.5 right-2.5 sm:top-4 sm:right-4 z-30 h-7 w-7 sm:h-8 sm:w-8 rounded-full bg-white/90 hover:bg-white text-slate-700 flex items-center justify-center transition-transform hover:scale-105 shadow-md border border-slate-200/50 cursor-pointer"
                 aria-label="Close"
               >
-                <X className="h-4.5 w-4.5" />
+                <X className="h-4 w-4" />
               </button>
 
               {/* 2-Column Poster Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-12 min-h-auto md:min-h-[420px]">
-                {/* Left Side: Crimson Poster Section */}
-                <div className="md:col-span-5 bg-gradient-to-br from-[#c8102e] via-[#a30b24] to-[#730517] text-white p-5 sm:p-7 md:p-8 flex flex-col justify-between relative overflow-hidden">
-                  {/* Angled subtle background accent */}
-                  <div className="absolute -right-12 -bottom-12 w-48 h-48 rounded-full bg-black/15 blur-2xl pointer-events-none"></div>
+              <div className="grid grid-cols-1 md:grid-cols-12">
+                {/* Left Side: Crimson Poster Section (Compact on mobile) */}
+                <div className="md:col-span-5 bg-gradient-to-br from-[#c8102e] via-[#a30b24] to-[#730517] text-white p-4 sm:p-6 md:p-8 flex flex-col justify-between relative overflow-hidden">
+                  {/* Subtle background ambient blur */}
+                  <div className="absolute -right-10 -bottom-10 w-40 h-40 rounded-full bg-black/20 blur-2xl pointer-events-none"></div>
 
                   <div className="relative z-10">
                     {/* Top Pill Tag */}
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/25 text-white text-[11px] font-bold tracking-wider uppercase mb-5">
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-black/30 text-white text-[10px] sm:text-[11px] font-bold tracking-wider uppercase mb-2 sm:mb-4">
                       <span className="h-2 w-2 rounded-full bg-white animate-pulse"></span>
                       24/7 RAPID EMERGENCY
                     </div>
 
                     {/* Poster Main Title */}
-                    <h3 className="text-2xl sm:text-[28px] font-extrabold tracking-tight leading-[1.15] mb-3 font-sans text-white">
-                      CRITICAL CARE & <br />
+                    <h3 className="text-xl sm:text-2xl md:text-[26px] font-black tracking-tight leading-tight mb-1.5 sm:mb-2 text-white font-sans">
+                      CRITICAL CARE & <br className="hidden sm:inline" />
                       TRAUMA CENTER
                     </h3>
-                    <p className="text-xs sm:text-[12.5px] text-white/90 leading-relaxed font-normal mb-6 max-w-[320px]">
+                    <p className="text-[11px] sm:text-xs text-white/90 leading-relaxed font-normal mb-3 sm:mb-5 max-w-[320px]">
                       State-of-the-art emergency unit equipped with advanced triage, on-site diagnostics, and instant consultant support.
                     </p>
 
-                    {/* Bullet Highlights with circular checks */}
-                    <div className="space-y-2.5 text-xs font-semibold text-white">
-                      <div className="flex items-center gap-2.5">
-                        <span className="h-4.5 w-4.5 rounded-full bg-red-500/80 flex items-center justify-center text-[11px] font-bold text-white shrink-0">✓</span>
+                    {/* Bullet Highlights */}
+                    <div className="flex flex-wrap md:flex-col gap-1.5 md:gap-2 text-[10px] sm:text-xs font-semibold text-white">
+                      <div className="flex items-center gap-1.5 bg-black/20 md:bg-transparent px-2 py-0.5 md:p-0 rounded-md">
+                        <span className="h-4 w-4 rounded-full bg-red-500/90 flex items-center justify-center text-[10px] font-bold text-white shrink-0">✓</span>
                         <span>Zero Triage Waiting Time</span>
                       </div>
-                      <div className="flex items-center gap-2.5">
-                        <span className="h-4.5 w-4.5 rounded-full bg-red-500/80 flex items-center justify-center text-[11px] font-bold text-white shrink-0">✓</span>
-                        <span>On-Duty Emergency Physicians & Surgeons</span>
+                      <div className="flex items-center gap-1.5 bg-black/20 md:bg-transparent px-2 py-0.5 md:p-0 rounded-md">
+                        <span className="h-4 w-4 rounded-full bg-red-500/90 flex items-center justify-center text-[10px] font-bold text-white shrink-0">✓</span>
+                        <span>On-Duty Emergency Doctors</span>
                       </div>
-                      <div className="flex items-center gap-2.5">
-                        <span className="h-4.5 w-4.5 rounded-full bg-red-500/80 flex items-center justify-center text-[11px] font-bold text-white shrink-0">✓</span>
-                        <span>Advanced Life-Support (ALS) Ambulances</span>
+                      <div className="flex items-center gap-1.5 bg-black/20 md:bg-transparent px-2 py-0.5 md:p-0 rounded-md">
+                        <span className="h-4 w-4 rounded-full bg-red-500/90 flex items-center justify-center text-[10px] font-bold text-white shrink-0">✓</span>
+                        <span>Advanced ALS Ambulances</span>
                       </div>
                     </div>
                   </div>
 
                   {/* Campus Tag at Bottom */}
-                  <div className="relative z-10 pt-4 mt-6 border-t border-white/15 text-[11px] text-white/85 flex items-center gap-2 font-medium">
-                    <MapPin className="h-4 w-4 shrink-0 text-white" />
+                  <div className="relative z-10 pt-2.5 sm:pt-4 mt-3 sm:mt-5 border-t border-white/15 text-[10.5px] sm:text-xs text-white/90 flex items-center gap-1.5 font-medium">
+                    <MapPin className="h-3.5 w-3.5 shrink-0 text-white" />
                     <span>Vibhuti Khand, Gomtinagar, Lucknow</span>
                   </div>
                 </div>
 
                 {/* Right Side: Action Hotline & Services */}
-                <div className="md:col-span-7 p-5 sm:p-7 md:p-8 flex flex-col justify-between bg-white">
+                <div className="md:col-span-7 p-4 sm:p-6 md:p-8 flex flex-col justify-between bg-white">
                   <div>
-                    <div className="mb-4 pr-6 sm:pr-8">
-                      <h4 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
+                    <div className="mb-3 sm:mb-4 pr-6 sm:pr-8">
+                      <h4 className="text-base sm:text-lg md:text-xl font-bold text-slate-900 tracking-tight">
                         Need Immediate Medical Attention?
                       </h4>
-                      <p className="text-xs text-slate-500 leading-relaxed mt-1">
+                      <p className="text-[11px] sm:text-xs text-slate-500 leading-snug mt-0.5">
                         Connect directly with our 24/7 emergency command desk for ambulance dispatch or physician consultation.
                       </p>
                     </div>
 
-                    {/* Primary Emergency Hotline Card */}
-                    <div className="p-3.5 sm:p-4 rounded-xl border border-red-200 bg-red-50/40 shadow-xs mb-4">
+                    {/* Primary Emergency Hotline Card (Never wraps awkwardly on mobile) */}
+                    <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-red-200 bg-red-50/60 shadow-xs mb-3 sm:mb-4">
                       <div className="flex items-center justify-between gap-2">
-                        <div className="flex items-center gap-2.5 sm:gap-3.5">
-                          <div className="h-10 w-10 sm:h-11 sm:w-11 rounded-xl bg-red-600 text-white flex items-center justify-center shadow-xs shrink-0">
-                            <PhoneCall className="h-4.5 w-4.5 sm:h-5 sm:w-5" />
+                        <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+                          <div className="h-9 w-9 sm:h-11 sm:w-11 rounded-xl bg-red-600 text-white flex items-center justify-center shadow-xs shrink-0">
+                            <PhoneCall className="h-4 w-4 sm:h-5 sm:w-5" />
                           </div>
-                          <div>
-                            <div className="text-[9.5px] sm:text-[10px] font-bold text-red-600 uppercase tracking-wider">
-                              24/7 PRIMARY EMERGENCY HOTLINE
+                          <div className="min-w-0">
+                            <div className="text-[9px] sm:text-[10px] font-bold text-red-600 uppercase tracking-wider truncate">
+                              24/7 PRIMARY HOTLINE
                             </div>
-                            <div className="text-lg sm:text-2xl font-black text-slate-900 tracking-tight">
+                            <a
+                              href="tel:+918953208952"
+                              className="text-sm sm:text-xl md:text-2xl font-black text-slate-900 tracking-tight whitespace-nowrap block hover:text-red-600 transition-colors"
+                            >
                               +91 89532 08952
-                            </div>
+                            </a>
                           </div>
                         </div>
                         <a
                           href="tel:+918953208952"
-                          className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-full bg-red-600 text-white text-xs font-bold shadow-xs hover:bg-red-700 transition-colors shrink-0"
+                          className="inline-flex items-center gap-1 px-3 sm:px-4 py-2 rounded-full bg-red-600 text-white text-[11px] sm:text-xs font-bold shadow-xs hover:bg-red-700 transition-colors shrink-0 whitespace-nowrap active:scale-95"
                         >
-                          Call Now <ArrowRight className="h-3.5 w-3.5" />
+                          Call Now <ArrowRight className="h-3 w-3" />
                         </a>
                       </div>
-                      <p className="text-[11px] text-slate-500 mt-2 pl-0.5 font-medium flex items-center gap-1.5">
-                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+                      <p className="text-[10px] sm:text-[11px] text-slate-500 mt-1.5 pl-0.5 font-medium flex items-center gap-1.5">
+                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0"></span>
                         Direct line to Triage Officer • Immediate response
                       </p>
                     </div>
 
-                    {/* Two Secondary Emergency Services */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5">
+                    {/* Two Secondary Emergency Services (Side by side on mobile) */}
+                    <div className="grid grid-cols-2 gap-2 sm:gap-3 mb-3 sm:mb-4">
                       {/* Ambulance */}
                       <a
                         href="tel:+918953208952"
-                        className="p-3.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100/80 transition-colors flex items-start gap-3"
+                        className="p-2.5 sm:p-3.5 rounded-xl border border-slate-200/90 bg-slate-50 hover:bg-slate-100 transition-all flex items-start gap-2 sm:gap-3 group"
                       >
-                        <div className="h-10 w-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0">
-                          <Ambulance className="h-5 w-5" />
+                        <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0">
+                          <Ambulance className="h-4 w-4 sm:h-5 sm:w-5" />
                         </div>
-                        <div>
-                          <div className="text-xs font-bold text-slate-800">ICU Ambulance</div>
-                          <div className="text-[10.5px] text-slate-500 leading-tight mt-0.5">Ventilator & EMTs onboard</div>
-                          <span className="text-[10.5px] font-bold text-emerald-700 mt-1.5 inline-block">Tap to Dispatch &rarr;</span>
+                        <div className="min-w-0">
+                          <div className="text-[11px] sm:text-xs font-bold text-slate-800 truncate">ICU Ambulance</div>
+                          <div className="text-[9.5px] sm:text-[10.5px] text-slate-500 leading-tight mt-0.5 truncate hidden sm:block">Ventilator onboard</div>
+                          <span className="text-[10px] sm:text-[10.5px] font-bold text-emerald-700 mt-0.5 sm:mt-1 inline-block">Tap to Call &rarr;</span>
                         </div>
                       </a>
 
@@ -293,25 +296,25 @@ export default function HomePage() {
                         href="https://maps.google.com/?q=Vibhuti+Khand,+Gomtinagar,+Lucknow,+Uttar+Pradesh+226010"
                         target="_blank"
                         rel="noreferrer"
-                        className="p-3.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100/80 transition-colors flex items-start gap-3"
+                        className="p-2.5 sm:p-3.5 rounded-xl border border-slate-200/90 bg-slate-50 hover:bg-slate-100 transition-all flex items-start gap-2 sm:gap-3 group"
                       >
-                        <div className="h-10 w-10 rounded-xl bg-sky-600 text-white flex items-center justify-center shrink-0">
-                          <MapPin className="h-5 w-5" />
+                        <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-sky-600 text-white flex items-center justify-center shrink-0">
+                          <MapPin className="h-4 w-4 sm:h-5 sm:w-5" />
                         </div>
-                        <div>
-                          <div className="text-xs font-bold text-slate-800">Emergency Entrance</div>
-                          <div className="text-[10.5px] text-slate-500 leading-tight mt-0.5">Vibhuti Khand, Gomtinagar</div>
-                          <span className="text-[10.5px] font-bold text-sky-700 mt-1.5 inline-block">Get Directions &rarr;</span>
+                        <div className="min-w-0">
+                          <div className="text-[11px] sm:text-xs font-bold text-slate-800 truncate">ER Campus</div>
+                          <div className="text-[9.5px] sm:text-[10.5px] text-slate-500 leading-tight mt-0.5 truncate hidden sm:block">Vibhuti Khand</div>
+                          <span className="text-[10px] sm:text-[10.5px] font-bold text-sky-700 mt-0.5 sm:mt-1 inline-block">Directions &rarr;</span>
                         </div>
                       </a>
                     </div>
                   </div>
 
                   {/* Dismiss & Continue Button */}
-                  <div className="pt-2">
+                  <div className="pt-1">
                     <button
                       onClick={handleCloseEmergencyModal}
-                      className="w-full py-3 px-4 rounded-xl font-bold text-sm text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors text-center flex items-center justify-center gap-2"
+                      className="w-full py-2.5 sm:py-3 px-4 rounded-xl font-bold text-xs sm:text-sm text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors text-center flex items-center justify-center gap-1.5 cursor-pointer"
                     >
                       Continue to Website &rarr;
                     </button>
